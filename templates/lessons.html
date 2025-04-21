@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    let lessons = {{lesson|tojson}}
+</style>
+
+<div class = "container mt-4">
+
+    <!-- Title Section -->
+    <div class = "row">
+        <div class = "col-4">
+            <!-- Rounded rectangle -->
+            <div 
+            class = "d-flex justify-content-center align-items-center bg-primary rounded-pill"
+            >
+                <h1>Guitar</h1>
+            </div>
+        </div>
+
+        <div class = "col-4">
+            <!-- Rounded rectangle -->
+            <div 
+            class = "d-flex justify-content-center align-items-center bg-primary rounded-pill"
+            >
+                <h1>Lesson</h1>
+            </div>
+        </div>
+
+        <div class = "col-4">
+            <!-- Rounded rectangle -->
+            <div 
+            class = "d-flex justify-content-center align-items-center bg-primary rounded-pill"
+            >
+                <h1>Plan</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lessons to be learned -->
+    <div class = "container mt-4 bg-primary rounded-pill"
+    style = "border: 4px solid red">
+
+        <!-- Entry Template -->
+        <div class = "row d-flex align-items-center">
+            <!-- Lesson Description -->
+            <div class = "col-6">
+                <div class = "ml-4">
+                    <h3>Lesson 1:</h3>
+                    <p>This Lesson Covers x,y,z</p>
+                </div>
+            </div>
+        
+            <!-- Getting states button-->
+            <div class = "col-4">
+                <button type="button" id = "submit" class="btn btn-secondary">Start Now</button>
+            </div>
+
+            <!-- completion status -->
+            <div class = "col-2">
+                <h4>Completed</h4>
+            </div>
+        </div>
+    </div> 
+</div>
+
+
+{% endblock %}

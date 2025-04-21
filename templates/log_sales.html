@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<script type="text/javascript" src="{{ url_for('static', filename = 'log_sales.js') }}"></script>
+
+<script>
+    let sales = {{sales|tojson}}
+    let clients = {{clients|tojson}}
+    console.log(sales)
+    console.log(clients)
+</script>
+
+<!-- Heading and Trash-->
+<div class = "row">
+    <div class = "col-2"></div>
+    <div class = "col-8" id = "header">
+
+        <h1>Columbia Paper Infinity</h1>
+
+        <div id="droppable" class="ui-widget-header box">
+            <p>trash</p>
+        </div>
+
+    </div>
+    <div class = "col-2"></div>
+</div>
+
+<br>
+
+<!-- Enter a Sale Logs -->
+<div class = "row">
+    <div class = "col-2"></div>
+    
+    <div class = "col-8">
+        <div class="form-group">
+            <div class = "row">
+                <div class = "col-3">
+                    <p>Log Your Paper Sales</p>
+                </div>
+                
+                <div class = "col-4">
+                   <input type = "text" id = "client" class = "form-control" placeholder = "client">
+                    <br>
+                   <div class="alert alert-warning" id = "client-warning-message" role="alert">
+                       Do not leave this field blank.
+                    </div>
+                </div>
+                
+                <div class = "col-3">
+                    <input type = "text" id = "reams" class = "form-control" placeholder = "# reams">
+                    <br>
+                    <div class="alert alert-warning" id = "reams-warning-message-1" role="alert">
+                        Only enter a number.
+                     </div>
+
+                    <div class="alert alert-warning" id = "reams-warning-message-2" role="alert">
+                        Do not leave this field blank.
+                    </div>
+                </div>
+                
+                <div class = "col-1">
+                     <button type="button" id = "submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class = "col-2"></div>
+</div> 
+
+<!-- Sales Logs -->
+<div class = "row">
+    <div class = "col-2"></div>
+    <div class = "col-8">
+        <div id = "container"></div>
+    </div>
+    <div class = "col-2"></div>
+</div>
+
+{% endblock %}
+
