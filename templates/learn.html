@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Chord Name -->
+<h1 class = "text-center">A Major</h1>
+
+<div class = "container mt-4">
+
+    <!-- Content for Lesson -->
+    <div class = "row"> 
+        <img 
+            class="img-fluid d-block mx-auto rounded" 
+            src = "assets/test.png" 
+            alt = "chord">
+    </div>
+    
+    <!-- Media Section -->
+    <div class = "row mt-4">
+        <div class = "col-4"></div>
+        
+        <div class = "col-4 d-flex justify-content-center">
+            <button
+                type= "button" 
+                id = "hear" 
+                class= "btn btn-warning rounded-pill"> 
+                Hear it!
+            </button>
+    
+            <button 
+                type= "button" 
+                id = "see" 
+                class= "btn btn-warning rounded-pill"> 
+                See it!
+            </button>
+        </div>
+
+        <div class = "col-4"></div>
+
+    </div>
+
+    <!-- Text Portion -->
+    <div class = "row mt-4">
+        <div class = "col-4"></div>
+        <div class = "col-4">
+            <p> The open A major shape consist of the
+                following notes: A, E, A, C#, E going down
+                the fretboard. The open strings are bolded
+            </p>
+        </div>
+        <div class = "col-4"></div>
+    </div>
+
+    <!-- Bottom Buttons -->
+    <div class = "row mt-5">
+        <div class = "col-1">
+            <button 
+                type= "button" 
+                id = "back" 
+                class= "btn btn-warning rounded-2"> 
+                Back
+            </button>
+        </div>
+        <div class = "col-10"></div>
+        <div class = "col-1">
+            <button 
+                type= "button" 
+                id = "next" 
+                class= "btn btn-warning rounded-2"> 
+                Next
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -3,12 +3,25 @@ from flask import render_template
 from flask import Response, request, jsonify
 app = Flask(__name__)
 
-lessons = [
-    {"Descriptio": "This lesson covers x,y,z", 
-     "Completed": True
+lesson_plan = [
+    {"description": "a,b,c", 
+     "completed": True,
+     "id": 0
+    },
+    {"description": "x,y,z", 
+     "completed": False,
+     "id": 1
+    },
+    {"description": "e,f,g", 
+     "completed": True,
+     "id": 2
+    },
+    {"description": "1,2,3", 
+     "completed": False,
+     "id": 3
     }
-    
 ] 
+
 current_id = 4
 
 # ROUTES
@@ -18,7 +31,11 @@ def welcome():
 
 @app.route('/lessons')
 def lessons():
-    return render_template('lessons.html', lessons = lessons)  
+    return render_template('lessons.html', lessons=lesson_plan)  
+
+@app.route('/learn')
+def learn():
+    return render_template('learn.html')  
 
 # AJAX FUNCTIONS
 
