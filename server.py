@@ -5,20 +5,24 @@ app = Flask(__name__)
 
 lesson_plan = {
     0: {
-        "description": "a,b,c", 
+        "description": "the basic, open C major shape", 
         "completed": True,
     },
     1: {
-        "description": "x,y,z", 
+        "description": "the basic, open A major shape", 
         "completed": False,
     },
     2: {
-        "description": "e,f,g", 
+        "description": "the basic, open G major shape", 
         "completed": True,
         "id": 2
     },
     3 : {
-        "description": "1,2,3", 
+        "description": "the basic, open E major shape", 
+        "completed": False,
+    },
+    4 : {
+        "description": "the basic, open D major shape",
         "completed": False,
     }
 }
