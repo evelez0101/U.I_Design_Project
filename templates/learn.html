@@ -10,7 +10,10 @@ let content = {{lesson_content|tojson}}
 console.log(content)
 </script>
 <!-- Chord Name -->
-<h1 class = "text-center">A Major</h1>
+<div class="text-center my-4">
+  <h1 class="display-4 font-weight-bold">A Major</h1>
+  <hr class="w-25 mx-auto">
+</div>
 
 <!-- Progress Tracker-->
 <div class = "container my-3">
@@ -28,7 +31,8 @@ console.log(content)
     <div class = "row"> 
         <img 
             class="img-fluid d-block mx-auto rounded" 
-            src = "{{ url_for('static', filename='assets/images/test.png') }}" 
+            src = "{{ url_for('static', filename='assets/images/AMajorTest.png') }}" 
+            style="max-width: 300px"
             alt = "chord">
     </div>
     
@@ -36,7 +40,7 @@ console.log(content)
     <div class = "row mt-4">
         <div class = "col-4"></div>
         
-        <div class = "col-4 d-flex justify-content-around">
+        <div class = "col-4 d-flex justify-content-around my-3">
             <button
                 type= "button" 
                 data-toggle="modal"
@@ -74,7 +78,7 @@ console.log(content)
               <span class="badge badge-light border mx-1">A</span>
               <span class="badge badge-light border mx-1">C#</span>
               <span class="badge badge-light border mx-1">E</span>
-              going down the fretboard. The open strings are bolded
+              going down the fretboard. The open strings are bolded.
             </p>
         </div>
         <div class = "col-4"></div>
