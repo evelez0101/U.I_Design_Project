@@ -2,6 +2,57 @@
 
 {% block content %}
 
-<b> Welcome to Guitar Project!</b>
+  <style>
+    body {
+      background-color: #0077b6;
+      color: #ade8f4;
+    }
+    .btn-demo {
+      background-color: #cae9ff;
+      color: #0D1E1E;
+    }
+    .btn-trial {
+      background: transparent;
+      border: 1px solid #cae9ff;
+      color: #E7FFCD;
+    }
+    /* replace this with your actual hex‑background SVG or CSS shapes */
+    .hex-bg {
+      background: url('{{url_for('static', filename='assets/images/guitar.svg')}}') center/contain no-repeat;
+      min-height: 350px;
+    }
+    .feature-icon {
+      margin-right: .5rem;
+    }
+  </style>
+
+  <!-- HERO -->
+  <section class="container my-5">
+    
+    <div class="row align-items-center">
+      
+        <!-- Left text column -->
+      <div class="col-6">
+
+        <h1 class="display-4 font-weight-light">
+            Play your first chords<br>in Just 10 Minutes!
+        </h1>
+
+        <p class="lead">
+            Learn the must-know guitar chords fast with our fun, high-energy guide! 
+            No boring lessons — just grab your guitar and start strumming in minutes. 
+            Your music journey starts now!
+        </p>
+        
+        <a href="/lessons" class="btn btn-demo btn-lg mr-2">Get Started</a>
+
+      </div>
+
+      <!-- Right hex‑background column -->
+      <div class="col-6">
+        <div class="hex-bg"></div>
+      </div>
+    </div>
+  </section>
 
 {% endblock %}

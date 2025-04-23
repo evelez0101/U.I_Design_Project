@@ -1,6 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+<script>
+
+let content = {{lesson_content|tojson}}
+console.log(content)
+</script>
 <!-- Chord Name -->
 <h1 class = "text-center">A Major</h1>
 
@@ -10,7 +18,7 @@
     <div class = "row"> 
         <img 
             class="img-fluid d-block mx-auto rounded" 
-            src = "assets/test.png" 
+            src = "{{ url_for('static', filename='assets/images/test.png') }}" 
             alt = "chord">
     </div>
     
@@ -18,19 +26,25 @@
     <div class = "row mt-4">
         <div class = "col-4"></div>
         
-        <div class = "col-4 d-flex justify-content-center">
+        <div class = "col-4 d-flex justify-content-around">
             <button
                 type= "button" 
-                id = "hear" 
-                class= "btn btn-warning rounded-pill"> 
-                Hear it!
+                data-toggle="modal"
+                data-target="#audioModal"
+                class= "btn btn-warning rounded-pill d-flex align-items-center"> 
+
+                <i class="bi bi-soundwave me-2"></i>
+                <span class = "">Hear it!</span>
             </button>
-    
-            <button 
-                type= "button" 
+            
+
+            <button  type= "button" 
                 id = "see" 
-                class= "btn btn-warning rounded-pill"> 
-                See it!
+                data-toggle="modal"
+                data-target="#youtubeModal"
+                class= "btn btn-warning rounded-pill d-flex align-items-center"> 
+                <i class="bi bi-play-btn-fill me-2" style="font-size: 1.1em;"></i>
+                <span class = "lr-2">See it!</span>
             </button>
         </div>
 
@@ -71,5 +85,134 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div
+class="modal fade"
+id="audioModal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="audioModalLabel"
+aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+            <h5 class="modal-title" id="audioModalLabel">Listen Up!</h5>
+            <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+            >
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+
+            <div class="modal-body text-center">
+                
+                <!-- Your audio element -->
+                <audio id="modalAudio" preload="auto">
+                    <source src="path/to/your-audio-file.mp3" type="audio/mpeg">
+                    
+                    <!-- Fallback text -->
+                    Your browser does not support the audio element.
+                </audio>
+                    <p>🔊 Playing audio inside this modal…</p>
+            </div>
+
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                >
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- YouTube Modal -->
+<div
+  class="modal fade"
+  id="youtubeModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="youtubeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="youtubeModalLabel">Lesson Video</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body p-0">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe
+            id="youtubeFrame"
+            class="embed-responsive-item"
+            src=""
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+    // Get the audio element
+    var audioEl = document.getElementById('modalAudio');
+
+    // When modal shown, play audio
+    $('#audioModal').on('shown.bs.modal', function () {
+      // Attempt to play; some browsers require user gesture, but since the
+      // modal was opened by click, this usually counts as user interaction.
+      audioEl.play().catch(function(err){
+        console.warn('Audio play was prevented:', err);
+      });
+    });
+
+    // When modal hidden, pause and reset to start
+    $('#audioModal').on('hide.bs.modal', function () {
+      audioEl.pause();
+      audioEl.currentTime = 0;
+    });
+</script>
+
+<script>
+    $(document).ready(function()
+    {
+      // Replace VIDEO_ID with your YouTube video ID:
+      const youtubeSrc = "https://youtu.be/dQw4w9WgXcQ?si=-b9XEajo-RclUa2d?autoplay=1&rel=0";
+  
+      // When the modal is shown, set the iframe src to start playback
+      $('#youtubeModal').on('shown.bs.modal', function () {
+        $('#youtubeFrame').attr('src', youtubeSrc);
+      });
+  
+      // When the modal is hidden, remove the src so the video stops
+      $('#youtubeModal').on('hide.bs.modal', function () {
+        $('#youtubeFrame').attr('src', '');
+      });
+    });
+  </script>
+
+
 
 {% endblock %}

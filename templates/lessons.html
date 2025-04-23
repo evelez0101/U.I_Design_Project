@@ -1,9 +1,47 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<style>
+<script>
     let lessons = {{lessons|tojson}}
+</script>
+
+<style>
+    .card-collapsible {
+      box-sizing: border-box;            /* include border in height */
+      max-height: 80px;                  /* collapsed height */
+      overflow: hidden;
+      border: 1px solid #ccc;            /* normal border */
+      border-radius: .25rem;             /* match Bootstrap card */
+      transition:
+        max-height 0.4s ease,
+        border-width 0.4s ease,
+        border-color 0.4s ease;
+    }
+
+    .card-collapsible:hover {
+      max-height: 200px;                 /* expanded height */
+      border-width: 3px;                 /* thicker border */
+      border-color: #007bff;             /* highlight color */
+    }
+
+    .collapse-content {
+      opacity: 0;                        /* hidden until hover */
+      transition: opacity 0.4s ease 0.2s;
+    }
+    .card-collapsible:hover .collapse-content {
+      opacity: 1;
+    }
 </style>
+
+<script>
+$(document).ready(function(){
+    $('.btn-warning').on('click', function()
+    {
+        let btnId = $(this).attr('id');
+        window.location.href = '/learn/'+btnId;
+    });
+});
+</script>
 
 <div class = "container mt-4">
 
@@ -38,35 +76,58 @@
     </div>
 
     <!-- Lessons to be learned -->
-    <div class = "container mt-4 bg-primary"
-    style = "border: 4px double black">
+    <div class = "container mt-4">
 
         <!-- Entry Template -->
         {% if lessons %}
-        {% for lesson in lessons %}
-        <div class = "row d-flex align-items-center"
-         style = "border-bottom: black 4px solid;">
-            <!-- Lesson Description -->
-            <div class = "col-4">
-                <div class = "ml-4">
-                    <h2>Lesson {{lesson.id}}:</h2>
-                    <p>This Lesson Covers {{lesson.description}}</p>
+        {% for idx in lessons %}
+        <!-- Collapsable Card -->
+        <div class="card card-collapsible mb-2">
+            <div class = "row d-flex align-items-center mt-2">
+                
+                <!-- Visible Content-->
+                <div class = "col-4">
+                    <h2 class="card-title">Lesson {{idx}}</h2>
                 </div>
-            </div>
-        
-            <!-- Getting states button-->
-            <div class = "col-4 d-flex justify-content-center">
-                <button 
-                    type= "button" 
-                    id = "submit" 
-                    class= "btn btn-warning rounded-pill w-75 "> 
-                        Start Now 
-                </button>
+
+                <!-- Fading in Content -->
+                
+                <!-- Getting Started Button-->
+                <div class = "col-4 collapse-content d-flex justify-content-center">
+                    <button 
+                        type= "button" 
+                        id = {{idx}} 
+                        class= "btn btn-warning rounded-pill w-75 "> 
+                            Start Now 
+                    </button>
+                </div>
+                
+                <!-- Space -->
+                <div class="col-1"></div>
+                
+                <!-- Completion Status -->
+                <div class = "col-2 collapse-content d-flex justify-content-around">
+                    <p class = "me-2">{{"Completed" if lessons[idx]["completed"] else "Not Yet Completed"}}</p>
+                    
+                    {% if lessons[idx]["completed"] %}
+                        <i class="bi bi-check-lg" style="font-size: 1.1em;"></i>
+                    {% else %}
+                        <i class="bi bi-dash-lg" style="font-size: 1.1em;"></i>
+                    {% endif %}
+                </div>
+
+                <div class = "col-1"></div>
             </div>
 
-            <!-- completion status -->
-            <div class = "col-4  d-flex justify-content-center">
-                <p>{{"Completed" if lesson.completed else "Not Yet Completed"}}</p>
+            <!-- Exapnded Region  -->
+            <div class = "collapse-content mt-2 mb-4 row d-flex align-items-center">
+                
+                <!-- Text Description -->
+                <div class = "col-4">
+                    <p class="card-text">
+                        This Lesson Covers {{lessons[idx]["description"]}}.
+                    </p>
+                </div>
             </div>
         </div>
         {% endfor %}

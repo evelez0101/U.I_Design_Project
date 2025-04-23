@@ -3,24 +3,49 @@ from flask import render_template
 from flask import Response, request, jsonify
 app = Flask(__name__)
 
-lesson_plan = [
-    {"description": "a,b,c", 
-     "completed": True,
-     "id": 0
+lesson_plan = {
+    0: {
+        "description": "a,b,c", 
+        "completed": True,
     },
-    {"description": "x,y,z", 
-     "completed": False,
-     "id": 1
+    1: {
+        "description": "x,y,z", 
+        "completed": False,
     },
-    {"description": "e,f,g", 
-     "completed": True,
-     "id": 2
+    2: {
+        "description": "e,f,g", 
+        "completed": True,
+        "id": 2
     },
-    {"description": "1,2,3", 
-     "completed": False,
-     "id": 3
+    3 : {
+        "description": "1,2,3", 
+        "completed": False,
     }
-] 
+}
+
+lesson_content = {
+    0: {
+            "title": "a,b,c", 
+            "text": "Text for page",
+            "image": "link to image",
+            "video": "video link",
+            "audio": "file path",
+            "next": "/quiz",
+            "back": "/lesson_plan"
+        }
+}
+
+quiz_content = {
+    0: {
+        "title": "Quiz 1", 
+        "answer": [""],
+        "image": "link to image",
+        "video": "video link",
+        "audio": "file path",
+        "next": "/quiz",
+    }
+
+}
 
 current_id = 4
 
@@ -33,9 +58,15 @@ def welcome():
 def lessons():
     return render_template('lessons.html', lessons=lesson_plan)  
 
-@app.route('/learn')
-def learn():
-    return render_template('learn.html')  
+@app.route('/learn/<id>')
+def learn(id):
+    id = int(id)
+    return render_template('learn.html',lesson_content = lesson_content[id])  
+
+@app.route('/quiz/<id>')
+def quiz(id):
+    id = int(id)
+    return render_template('chord_quiz.html',quiz_content = quiz_content[id])  
 
 # AJAX FUNCTIONS
 
