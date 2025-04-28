@@ -1,0 +1,65 @@
+.progressbar 
+{
+  counter-reset: step;
+  margin: 2rem 0;
+  overflow: hidden;
+}
+.progressbar li 
+{
+  list-style: none;
+  width: 33%;
+  float: left;
+  position: relative;
+  text-align: center;
+}
+.progressbar li:before 
+{
+  content: counter(step);
+  counter-increment: step;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  border: 2px solid #ddd;
+  display: block;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  background: #fff;
+  color: #bbb;
+  font-weight: bold;
+}
+.progressbar li:first-child:after 
+{
+  content: none;
+}
+
+  /* 1) Make all lines start at zero width, and animate width & color */
+.progressbar li:after {
+  content: "";
+  position: absolute;
+  top: 18px;               /* half of 36px circle */
+  left: -50%;              /* start at the center of the previous circle */
+  height: 2px;
+  width: 0;                /* ← start “collapsed” */
+  background: #ddd;
+  z-index: -1;
+  transition: width 2.5s ease, background 2.5s ease;
+}
+
+/* when a step is marked done, the :after grows to full length */
+.progressbar li.done:after,
+.progressbar li.active:after {
+  width: 100%;             /* ← expands to connect to the next circle */
+  background: #0d6efd;
+}
+
+/* 2) Also fade the circle border/color smoothly */
+.progressbar li:before {
+  transition: border-color 2s ease, color 2s ease;
+}
+
+/* your existing “done” and “active” rules stay the same: */
+.progressbar li.done:before,
+.progressbar li.active:before {
+  border-color: #0d6efd;
+  color:        #0d6efd;
+}

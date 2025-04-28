@@ -166,6 +166,7 @@ $(document).ready(function()
 // Handles deleting
 function delete_sale (id)
 {
+    
     // Call to backend  
     $.ajax({
         type: "POST",
@@ -194,6 +195,7 @@ function delete_sale (id)
             console.log(error)
         }
     });
+
 }
 
 // Delete a log using button

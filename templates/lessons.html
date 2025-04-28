@@ -34,6 +34,12 @@
 </style>
 
 <script>
+$(document).ready(function() 
+{
+    // focus as soon as the page loads
+    $('.card').focus();
+});
+
 $(document).ready(function(){
     $('.btn-warning').on('click', function()
     {
@@ -87,7 +93,7 @@ $(document).ready(function(){
                 
                 <!-- Visible Content-->
                 <div class = "col-4">
-                    <h2 class="card-title">Lesson {{idx}}</h2>
+                    <h4 class="card-title">Lesson {{idx}} : {{lessons[idx]["title"]}}</h4>
                 </div>
 
                 <!-- Fading in Content -->

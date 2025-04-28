@@ -1,0 +1,9 @@
+.btn-group-toggle .btn {
+    border-radius: 50% !important;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}

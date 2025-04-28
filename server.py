@@ -5,60 +5,101 @@ app = Flask(__name__)
 
 lesson_plan = {
     0: {
-        "description": "the basic, open C major shape", 
-        "completed": True,
-    },
-    1: {
-        "description": "the basic, open A major shape", 
+        "title": "Getting Started",
+        "description": "How to read guitar tabs and the basics", 
         "completed": False,
+        "lesson_id": 0
+    },
+    1:{
+        "title": "C Major",
+        "description": "the basic, open C major shape", 
+        "completed": False,
+        "lesson_id": 1
     },
     2: {
-        "description": "the basic, open G major shape", 
-        "completed": True,
-        "id": 2
-    },
-    3 : {
-        "description": "the basic, open E major shape", 
+        "title": "A Major",
+        "description": "the basic, open A major shape", 
         "completed": False,
+        "lesson_id": 2
+    },
+    3: {
+        "title": "G Major",
+        "description": "the basic, open G major shape", 
+        "completed": False,
+        "lesson_id": 3
     },
     4 : {
+        "title": "Quiz 1",
+        "description": "the basic, open E major shape", 
+        "completed": False,
+        "lesson_id": 4
+    },
+    5 : {
+        "title": "D Major",
         "description": "the basic, open D major shape",
         "completed": False,
+        "lesson_id": 5
     }
 }
 
 lesson_content = {
     0: {
-            "title": "a,b,c", 
+            "chord": "Getting Started",
             "text": "Text for page",
-            "image": "link to image",
+            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
+            "future_lessons": ["Getting Started","A Major", "G Major", "Check Point 1"],
+            "notes": ["A", "E", "A", "C#", "E"],
             "video": "video link",
             "audio": "file path",
-            "next": "/quiz",
-            "back": "/lesson_plan"
+            "next": "/learn/1",
+            "back": "/lesson_plan",
+            "order": 1
+        },
+    1: {
+            "chord": "A Major",
+            "text": "Text for page",
+            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
+            "future_lessons": ["Getting Started", "C Major","A Major", "G Major", "Check Point 1"],
+            "notes": ["A", "E", "A", "C#", "E"],
+            "video": "video link",
+            "audio": "file path",
+            "next": "/quiz/0",
+            "back": "/learn/0",
+            "order": 2
         }
 }
 
 quiz_content = {
-    0: {
-        "title": "Quiz 1", 
-        "answer": [""],
+    0: 
+        # First Question 1
+        [ 
+        {"title": "Quiz 1", 
+        "task": "Play an A Major Chord",
+        "directions": "Please Select which notes to play and which notes to play.",
+        "answer": ["Open", "E", "A", "C#", "X"],
         "image": "link to image",
         "video": "video link",
         "audio": "file path",
-        "next": "/quiz",
+        "next": "/quiz"},
+        {"title": "Quiz 1", 
+        "answer": "a",
+        "image": "link to image",
+        "video": "video link",
+        "audio": "file path",
+        "next": "/quiz"}
+        ]
     }
 
-}
+current_answers = []
 
-current_id = 4
+current_question = 1
 
 # ROUTES
 @app.route('/')
 def welcome():
    return render_template('welcome.html')   
 
-@app.route('/lessons')
+@app.route('/lesson_plan')
 def lessons():
     return render_template('lessons.html', lessons=lesson_plan)  
 
@@ -70,64 +111,53 @@ def learn(id):
 @app.route('/quiz/<id>')
 def quiz(id):
     id = int(id)
-    return render_template('chord_quiz.html',quiz_content = quiz_content[id])  
+    return render_template('quiz_layout.html',quiz_content = quiz_content[id],current_question = current_question)  
 
 # AJAX FUNCTIONS
 
 # ajax for log_sales.js
-@app.route('/save_sale', methods=['GET', 'POST'])
-def add_sale():
-    global sales 
-    global clients
-    global current_id 
+@app.route('/save_answer', methods=['GET', 'POST'])
+def save_answer():
+    global current_answers 
 
     json_data = request.get_json()   
 
     print(json_data)
 
-    salesperson = json_data["salesperson"] 
-    client = json_data["client"] 
-    reams = json_data["reams"] 
+    answer = json_data["answer"] 
+    question_number = json_data["question_number"] 
     
     # Add client to list if they arent already there
-    if (client not in clients):
-        clients.append(client)
-    
-    # add new entry to array with 
-    # a new id and the name the user sent in JSON
-    current_id += 1
-    new_id = current_id 
-    new_sale = ({
-                "salesperson": salesperson,
-                "client": client,
-                "reams": reams,
-                "id": new_id
-                })
-
-    sales.append(new_sale)
+    current_answers[question_number] = answer
 
     #send back the WHOLE array of sales, so the client can redisplay it
-    return jsonify(sales = sales, clients = clients)
+    return jsonify(current_answers = current_answers)
+
+@app.route('/chord_quiz', methods=['GET'])
+def chord_quiz():
+     return render_template('chord_quiz.html')
 
 # ajax for log_sales.js
-@app.route('/delete_sale', methods=['GET', 'POST'])
-def delete_sale():
-    global sales 
+@app.route('/quiz/next_question', methods=['GET', 'POST'])
+def next_question():
+    global current_question 
 
-    json_data = request.get_json()   
-    print("data: " + str(json_data))
-    id_to_delete = json_data
-    
-    # Search for the entry in out list of sales
-    for sale in sales:
-        # Once its found it gets removed
-        if sale["id"] == id_to_delete:
-            sales.remove(sale)
-            # break to remove unecessary search
-            break
+    current_question += 1
 
+    print(current_question)
     #send back the array of sales, so the client can redisplay it
-    return jsonify(sales = sales)
+    return jsonify(current_question = current_question)
+
+# ajax for log_sales.js
+@app.route('/quiz/prev_question', methods=['GET', 'POST'])
+def prev_question():
+    global current_question 
+
+    current_question -= 1
+
+    print(current_question)
+    #send back the array of sales, so the client can redisplay it
+    return jsonify(current_question = current_question)
 
 if __name__ == '__main__':
    app.run(debug = True, port=5001)
