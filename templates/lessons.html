@@ -10,18 +10,18 @@
       box-sizing: border-box;            /* include border in height */
       max-height: 80px;                  /* collapsed height */
       overflow: hidden;
-      border: 1px solid #ccc;            /* normal border */
-      border-radius: .25rem;             /* match Bootstrap card */
+      border: 2px solid lightslategray;            /* normal border */
+      border-radius: 12px;            /* match Bootstrap card */
       transition:
-        max-height 0.4s ease,
+        max-height 1s ease,
         border-width 0.4s ease,
-        border-color 0.4s ease;
+        border-color 0.2s ease;
     }
 
     .card-collapsible:hover {
       max-height: 200px;                 /* expanded height */
-      border-width: 3px;                 /* thicker border */
-      border-color: #007bff;             /* highlight color */
+      border-width: 2px;                 /* thicker border */
+      border-color: var(--color-accent);             /* highlight color */
     }
 
     .collapse-content {
@@ -41,7 +41,7 @@ $(document).ready(function()
 });
 
 $(document).ready(function(){
-    $('.btn-warning').on('click', function()
+    $('.btn').on('click', function()
     {
         let btnId = $(this).attr('id');
         window.location.href = '/learn/'+btnId;
@@ -56,7 +56,7 @@ $(document).ready(function(){
         <div class = "col-4">
             <!-- Rounded rectangle -->
             <div 
-            class = "d-flex justify-content-center align-items-center bg-primary rounded-pill"
+            class = "d-flex justify-content-center align-items-center bg-base rounded-pill"
             >
                 <h1>Guitar</h1>
             </div>
@@ -65,7 +65,7 @@ $(document).ready(function(){
         <div class = "col-4">
             <!-- Rounded rectangle -->
             <div 
-            class = "d-flex justify-content-center align-items-center bg-primary rounded-pill"
+            class = "d-flex justify-content-center align-items-center bg-base rounded-pill"
             >
                 <h1>Lesson</h1>
             </div>
@@ -74,7 +74,7 @@ $(document).ready(function(){
         <div class = "col-4">
             <!-- Rounded rectangle -->
             <div 
-            class = "d-flex justify-content-center align-items-center bg-primary rounded-pill"
+            class = "d-flex justify-content-center align-items-center bg-base rounded-pill"
             >
                 <h1>Plan</h1>
             </div>
@@ -93,7 +93,7 @@ $(document).ready(function(){
                 
                 <!-- Visible Content-->
                 <div class = "col-4">
-                    <h4 class="card-title">Lesson {{idx}} : {{lessons[idx]["title"]}}</h4>
+                    <h4 class="card-title ml-2">Lesson {{idx}} : {{lessons[idx]["title"]}}</h4>
                 </div>
 
                 <!-- Fading in Content -->
@@ -103,8 +103,8 @@ $(document).ready(function(){
                     <button 
                         type= "button" 
                         id = {{idx}} 
-                        class= "btn btn-warning rounded-pill w-75 "> 
-                            Start Now 
+                        class= "btn bg-base rounded-pill w-75 h-20"> 
+                            <strong>Start Now</strong>
                     </button>
                 </div>
                 
@@ -130,8 +130,8 @@ $(document).ready(function(){
                 
                 <!-- Text Description -->
                 <div class = "col-4">
-                    <p class="card-text">
-                        This Lesson Covers {{lessons[idx]["description"]}}.
+                    <p class="card-text ml-2">
+                    This Lesson will cover {{lessons[idx]["description"]}}.
                     </p>
                 </div>
             </div>

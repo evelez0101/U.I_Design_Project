@@ -1,0 +1,15 @@
+/* variables.css */
+:root {
+    --color-primary:  #95d5b2;
+    --color-accent:   #2d6a4f;
+  }  
+
+.bg-base
+{
+    background-color: var(--color-primary);   
+}
+
+.bg-accent
+{
+    background-color: var(--color-accent);   
+}

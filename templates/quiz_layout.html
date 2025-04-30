@@ -3,7 +3,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="{{ url_for('static', filename = 'js/quiz.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/quiz_template.js') }}"></script>
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}" >
 <link rel="stylesheet" href="{{ url_for('static', filename='css/learn.css') }}" >
@@ -11,11 +11,11 @@
 <script>
   let content = {{quiz_content|tojson}};
   let current_question = {{current_question|tojson}};
+  let current_answers = {{current_answers|tojson}};
   console.log(content);
 </script>
 
 <!-- Progress Tracker -->
-
 <div class = "container mt-2">
   <div class = "row mt-n4">
     <div class = "col">
@@ -30,45 +30,56 @@
   </div>
 
   <!-- Question Begins Here -->
-  <div class = "row">
-    <div class = "col d-flex justify-content-center ">
-      <h3>Check Point {{current_question}}: {{quiz_content[current_question - 1]['task']}} </h3>
-    </div>
-  </div>
-
-  <div class = "row">
-    <div class = "col  d-flex justify-content-center">
-      <p>{{quiz_content[current_question - 1]['directions']}} </p>
-    </div>
-  </div>
+  <div id = "question_text"></div>
 
   <!-- Quiz Content Starts Here -->
-  <div class = "container" id = "question"> </div>
+  <div class = "row mt-2">
+    <div class = "col-2"></div>
+
+    <div class = "col-8">
+      <div
+      class="d-flex align-items-center"
+      style="height: 300px;"
+      id = "question"
+      >
+      </div>
+    </div>
+
+    <div class = "col-2"></div>
+  </div>
 
   
   <!-- Quiz U.I Picks Up Here Again -->
-  <div class = "row m2-4">
-      <div class = "col d-flex justify-content-center align-items-center">
-          <button id="getAnswersBtn" class="btn btn-primary" disabled> Check Answer </button>
-      </div>
+
+  <!-- Question Grading -->
+  </div class = "row">
+    <div class = "col" id = "alert"></div>
   </div>
 
+
   <!-- Bottom Buttons -->
-  <div class = "row mt-2 mb-4">
+  <div class = "row mt-5 mb-2">
+    <div class = "col-2"></div>
     <div class = "col-1">
         <button 
             type= "button" 
             id = "prev" 
-            class= "btn btn-warning rounded-2"> 
+            class= "btn btn-secondary rounded-2"> 
             Back
         </button>
     </div>
-    <div class = "col-10"></div>
+    <div class = "col-6">
+      <div class = "col d-flex justify-content-center align-items-center">
+        <button id="getAnswersBtn" class="btn btn-primary"> Check Answer </button>
+      </div>
+    </div>
     <div class = "col-1">
         <button 
             type= "button" 
             id = "next" 
-            class= "btn btn-warning rounded-2"> 
+            class= "btn bg-accent rounded-2"
+            style = "color: white;"
+            > 
             Next
         </button>
     </div>

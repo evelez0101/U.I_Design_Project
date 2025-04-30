@@ -1,3 +1,12 @@
 {% block content %}
-<h1>Hello World</h1>
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/multiple_choice.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/multiple_choice.css') }}" >
+
+  <div class="container py-5">
+    <!-- placeholders -->
+    <div id="quiz-question"></div>
+    <div id="quiz-options" class="row"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 {% endblock %}

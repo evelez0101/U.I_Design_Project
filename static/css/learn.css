@@ -22,7 +22,7 @@
   border: 2px solid #ddd;
   display: block;
   margin: 0 auto 8px;
-  border-radius: 50%;
+  border-radius: 30%;
   background: #fff;
   color: #bbb;
   font-weight: bold;
@@ -49,7 +49,7 @@
 .progressbar li.done:after,
 .progressbar li.active:after {
   width: 100%;             /* ← expands to connect to the next circle */
-  background: #0d6efd;
+  background: var(--color-primary);
 }
 
 /* 2) Also fade the circle border/color smoothly */
@@ -60,6 +60,6 @@
 /* your existing “done” and “active” rules stay the same: */
 .progressbar li.done:before,
 .progressbar li.active:before {
-  border-color: #0d6efd;
-  color:        #0d6efd;
+  border-color: var(--color-primary);
+  color:        var(--color-primary);
 }

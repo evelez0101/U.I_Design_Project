@@ -22,6 +22,8 @@
   rel="stylesheet"
   />
 
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/variables.css') }}" >
+
   <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
     <title>Guitar Project</title>
   </head>
@@ -35,10 +37,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" href="/">About Us</a>
-        <a class="nav-link" href="/lessons">Lesson Plan</a>
+        <a class="nav-link" href="/lesson_plan">Lesson Plan</a>
         <a class="nav-link" href="/tests">Quizzes</a>
-        <a class="nav-link" href="/">Home</a>
       </div>
     </div>
   </div>

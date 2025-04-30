@@ -15,20 +15,10 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/learn.css') }}" >
 
 <div class = "container">
-  <!-- Chord Name -->
+  
+  <!-- Progress Tracker -->
   <div class = "row">
     <div class = "col">
-      <div class="text-center my-4">
-        <h1 class="display-4 font-weight-bold">{{lesson_content['chord']}}</h1>
-        <hr class="w-25 mx-auto">
-      </div>
-    </div>
-  </div>  
-
-  <!-- Progress Tracker -->
-  <div class = "row mt-n4">
-    <div class = "col">
-
       <!-- Progress Bar with steps -->
       <ul class="progressbar">
         {% for lesson in lesson_content["future_lessons"] %}
@@ -39,18 +29,29 @@
     </div>
   </div>
 
+  <!-- Chord Name -->
+  <div class = "row mt-n4">
+    <div class = "col">
+      <div class="text-center my-4">
+        <h1 class="display-4 font-weight-bold">{{lesson_content['chord']}}</h1>
+        <hr class="w-25 mx-auto">
+      </div>
+    </div>
+  </div>  
+
   <!-- Content for Lesson -->
-  <div class = "row mt-2"> 
-    <div class = "col-1"></div>
-    <div class = "col-5">
+  <div class = "row mt-n2"> 
+    <div class = "col-2"></div>
+    <div class = "col-4">
       <img 
-          class="img-fluid d-block mx-auto rounded" 
+          class="w-75 d-block rounded" 
+          style = "border: 2px dotted black; border-radius: 5px;"
           src = " {{lesson_content["image"]}} "
           alt = "chord">
     </div>
     
     <!-- Right Column -->
-    <div class = "col-5 justify-content-center align-items-center">
+    <div class = "col-4">
       
       <!-- Text Portion -->
       <div class = "row mt-2">
@@ -68,30 +69,33 @@
       </div>
 
       <!-- Media Section -->
-      <div class = "row mt-4">
-        <div class = "col-2"></div>
-        
-        <div class = "col-8 d-flex justify-content-around my-3">
+      <div class = "row mt-4">      
+        <div class = "col d-flex justify-content-center">
             <button
                 type= "button" 
                 data-toggle="modal"
                 data-target="#audioModal"
-                class= "btn btn-warning rounded-pill d-flex align-items-center shadow mx-2"> 
+                class= "btn bg-base rounded-pill shadow"> 
+                
+                <div class = "gap-2">
+                  <i class="bi bi-soundwave"></i>
+                  <span class = "text-dark">Hear it!</span>
+                </div>
 
-                <i class="bi bi-soundwave"></i>
-                <span class = "lr-2">Hear it!</span>
             </button>
             
             <button  type= "button" 
                 id = "see" 
                 data-toggle="modal"
                 data-target="#youtubeModal"
-                class= "btn btn-warning rounded-pill d-flex align-items-center shadow mx-2"> 
-                <i class="bi bi-play-btn-fill me-2" style="font-size: 1.1em;"></i>
-                <span class = "lr-2">See it!</span>
+                class= "btn bg-base rounded-pill shadow mx-4"> 
+                <div class = "gap-2">
+                  <i class="bi bi-play-btn-fill me-2" style="font-size: 1.1em;"></i>
+                  <span class = "lr-2">See it!</span>
+                </div>
             </button>
+
         </div>
-        <div class = "col-2"></div>
       </div>
 
     </div>
@@ -100,24 +104,29 @@
   </div>
 
   <!-- Bottom Buttons -->
-  <div class = "row mt-5">
+  <div class = "row mb-4 mt-4">
+    <div class = "col-2"></div>
+    
     <div class = "col-1">
         <button 
             type= "button" 
             id = "back" 
-            class= "btn btn-warning rounded-2"> 
+            class= "btn btn-secondary rounded-2"> 
             Back
         </button>
     </div>
-    <div class = "col-10"></div>
+    
+    <div class = "col-6"></div>
+    
     <div class = "col-1">
         <button 
             type= "button" 
             id = "next" 
-            class= "btn btn-warning rounded-2"> 
+            class= "btn bg-accent rounded-2"
+            style = "color: white">
             Next
         </button>
-    </div>
+      </div>
   </div>
   
 </div>
@@ -181,6 +190,7 @@ aria-hidden="true"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-lg" role="document">
+    
     <div class="modal-content">
 
       <div class="modal-header">

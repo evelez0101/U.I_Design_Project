@@ -9,7 +9,8 @@ function prev_question()
       data : " ",
       success: function(result)
       {
-          console.log("Decrement Increment")
+          current_question = result["current_question"];
+          display_question();
           request_question(result["current_question"]);
       },
       error: function(request, status, error)
@@ -26,7 +27,6 @@ function prev_question()
 // Handles next question logic
 function next_question()
 {
-
     $.ajax({
         type: "POST",
         url: "next_question",                
@@ -35,8 +35,8 @@ function next_question()
         data : " ",
         success: function(result)
         {
-            console.log("success Increment")
-
+            current_question = result["current_question"];
+            display_question();
             request_question(result["current_question"]);
         },
         error: function(request, status, error)
@@ -47,12 +47,38 @@ function next_question()
             console.log(error)
         }
     });
+}
 
+function display_question()
+{
+ 
+  // build the HTML using a template‐literal
+  const questionHTML = $(`
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <h3>
+        Question ${current_question}: ${content[current_question - 1].task}
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <p>
+        ${content[current_question - 1].directions}
+      </p>
+    </div>
+  </div>`);
+  
+  console.log(questionHTML)
+  // append it to your target container
+  $('#question_text').empty();
+  $('#question_text').append(questionHTML);
 }
 
 // Handles saving answer
 function save_answer(answer, question_num)
 {
+    console.log("save called");
     // Call to backend  
     let data = [answer, question_num];
 
@@ -79,8 +105,23 @@ function save_answer(answer, question_num)
 
 function request_question(question_num)
 {
+  let endpoint = "";
+
+  switch(question_num)
+  {
+    case 1:
+      endpoint = "/chord_quiz";
+      break;
+    case 2:
+      endpoint = "/multiple_choice";
+      break;
+    default:
+      endpoint = "/chord_quiz";
+  }
+
+  console.log(endpoint)
   $.ajax({
-    url: "/chord_quiz",       // Flask route
+    url: endpoint,       // Flask route
     method: "GET",
     dataType: "html",      // expect HTML back
     success: function(html) {
@@ -91,6 +132,7 @@ function request_question(question_num)
     },
     error: function(xhr, status, err) {
       console.error("AJAX error:", status, err);
+      $("#question").empty();
     }
   });
 }
@@ -98,6 +140,7 @@ function request_question(question_num)
 // Progress bar
 $(document).ready(function() 
 {
+  // Initialize progress bar 
     const $steps = $('.progressbar li');
     const total  = $steps.length;
     let current  = current_question;
@@ -149,4 +192,6 @@ $(document).ready(function()
           updateProgress();
       }
     });
+
+    display_question();
 });

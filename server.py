@@ -6,7 +6,7 @@ app = Flask(__name__)
 lesson_plan = {
     0: {
         "title": "Getting Started",
-        "description": "How to read guitar tabs and the basics", 
+        "description": "how to read guitar tabs and the basics", 
         "completed": False,
         "lesson_id": 0
     },
@@ -47,7 +47,7 @@ lesson_content = {
             "chord": "Getting Started",
             "text": "Text for page",
             "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
-            "future_lessons": ["Getting Started","A Major", "G Major", "Check Point 1"],
+            "future_lessons": ["Getting Started", "C Major","A Major", "G Major"],
             "notes": ["A", "E", "A", "C#", "E"],
             "video": "video link",
             "audio": "file path",
@@ -56,42 +56,81 @@ lesson_content = {
             "order": 1
         },
     1: {
-            "chord": "A Major",
+            "chord": "C Major",
             "text": "Text for page",
             "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
-            "future_lessons": ["Getting Started", "C Major","A Major", "G Major", "Check Point 1"],
+            "future_lessons": ["Getting Started", "C Major","A Major", "G Major"],
             "notes": ["A", "E", "A", "C#", "E"],
             "video": "video link",
             "audio": "file path",
-            "next": "/quiz/0",
+            "next": "/learn/2",
             "back": "/learn/0",
             "order": 2
-        }
+        },
+    2: {
+        "chord": "A Major",
+        "text": "Text for page",
+        "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
+        "future_lessons": ["Getting Started", "C Major","A Major", "G Major"],
+        "notes": ["A", "E", "A", "C#", "E"],
+        "video": "video link",
+        "audio": "file path",
+        "next": "/learn/3",
+        "back": "/learn/1",
+        "order": 3
+    },
+    3: {
+        "chord": "G Major",
+        "text": "Text for page",
+        "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
+        "future_lessons": ["Getting Started", "C Major","A Major", "G Major"],
+        "notes": ["A", "E", "A", "C#", "E"],
+        "video": "video link",
+        "audio": "file path",
+        "next": "/lesson_plan",
+        "back": "/learn/2",
+        "order": 4
+    }
 }
 
 quiz_content = {
-    0: 
-        # First Question 1
-        [ 
-        {"title": "Quiz 1", 
+# Quiz 1 
+0:[ 
+    # Question 1
+    {
         "task": "Play an A Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
-        "answer": ["Open", "E", "A", "C#", "X"],
-        "image": "link to image",
-        "video": "video link",
-        "audio": "file path",
-        "next": "/quiz"},
-        {"title": "Quiz 1", 
+        "answer": ['E', 'A', 'E', 'A', 'C#', 'X'],
+    },
+    # Question 2
+    {
+        "task": "Sample Questions",
+        "directions": "Please Select the best answer.",
         "answer": "a",
-        "image": "link to image",
-        "video": "video link",
-        "audio": "file path",
-        "next": "/quiz"}
-        ]
+        "options": [
+                    { "value": "A", "text": "Choice A" },
+                    { "value": "B", "text": "Choice B" },
+                    { "value": "C", "text": "Choice C" },
+                    { "value": "D", "text": "Choice D" }
+                    ]
+    },
+    # Question 3
+    {
+        "task": "Play an A Major Chord",
+        "directions": "Please Select which notes to play and which notes to play.",
+        "answer": ['E', 'A', 'E', 'A', 'C#', 'X'],
+    },
+     # Question 4
+    {
+        "task": "Play an A Major Chord",
+        "directions": "Please Select which notes to play and which notes to play.",
+        "answer": ['E', 'A', 'E', 'A', 'C#', 'X'],
+    }
+]
     }
 
-current_answers = []
-
+# Handles Peristatnce of answers during quiz section 
+current_answers = [[],'','']
 current_question = 1
 
 # ROUTES
@@ -111,33 +150,39 @@ def learn(id):
 @app.route('/quiz/<id>')
 def quiz(id):
     id = int(id)
-    return render_template('quiz_layout.html',quiz_content = quiz_content[id],current_question = current_question)  
+    return render_template('quiz_layout.html',
+                            quiz_content = quiz_content[id],
+                            current_question = current_question, 
+                            current_answers = current_answers)  
+
+# Endpoints for templates
+@app.route('/chord_quiz', methods=['GET'])
+def chord_quiz():
+     return render_template('chord_quiz.html')
+
+@app.route('/multiple_choice', methods=['GET'])
+def mp_quiz():
+     return render_template('multiple_choice.html')
+
 
 # AJAX FUNCTIONS
-
-# ajax for log_sales.js
-@app.route('/save_answer', methods=['GET', 'POST'])
+@app.route('/quiz/save_answer', methods=['GET', 'POST'])
 def save_answer():
     global current_answers 
 
     json_data = request.get_json()   
 
-    print(json_data)
-
-    answer = json_data["answer"] 
-    question_number = json_data["question_number"] 
+    answer = json_data[0]
+    idx = json_data[1] - 1
     
     # Add client to list if they arent already there
-    current_answers[question_number] = answer
+    current_answers[idx] = answer
+
+    print(current_answers)
 
     #send back the WHOLE array of sales, so the client can redisplay it
     return jsonify(current_answers = current_answers)
 
-@app.route('/chord_quiz', methods=['GET'])
-def chord_quiz():
-     return render_template('chord_quiz.html')
-
-# ajax for log_sales.js
 @app.route('/quiz/next_question', methods=['GET', 'POST'])
 def next_question():
     global current_question 
@@ -148,7 +193,6 @@ def next_question():
     #send back the array of sales, so the client can redisplay it
     return jsonify(current_question = current_question)
 
-# ajax for log_sales.js
 @app.route('/quiz/prev_question', methods=['GET', 'POST'])
 def prev_question():
     global current_question 

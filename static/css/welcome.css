@@ -1,0 +1,13 @@
+body {
+    background-color: var(--color-primary);
+    color: #444a56;
+}
+
+.btn-demo {
+background-color: var(--color-accent);
+color: #444a56;
+}
+
+.feature-icon {
+margin-right: .5rem;
+}

@@ -1,28 +1,13 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}" >
+  
   <style>
-    body {
-      background-color: #0077b6;
-      color: #ade8f4;
-    }
-    .btn-demo {
-      background-color: #cae9ff;
-      color: #0D1E1E;
-    }
-    .btn-trial {
-      background: transparent;
-      border: 1px solid #cae9ff;
-      color: #E7FFCD;
-    }
-    /* replace this with your actual hex‑background SVG or CSS shapes */
-    .hex-bg {
-      background: url('{{url_for('static', filename='assets/images/guitar.svg')}}') center/contain no-repeat;
-      min-height: 350px;
-    }
-    .feature-icon {
-      margin-right: .5rem;
+   /* replace this with your actual hex‑background SVG or CSS shapes */
+   .hex-bg {
+    background: url('{{url_for('static', filename='assets/images/guitar.svg')}}') center/contain no-repeat;
+    min-height: 350px;
     }
   </style>
 

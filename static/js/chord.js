@@ -70,6 +70,9 @@ $(document).ready(function() {
       } 
       $body.append($tr);
     });
+
+    toggleLoaded();
+    checkReadyToSubmit();
   });
 
 // Gets value from each row
@@ -82,17 +85,38 @@ function getTableRowValues()
       let val = $(this).find('input[type=radio]:checked').val();
       
       // if none checked, return null (or '' if you prefer)
-      return val;
+      return val ?? '';
     }).get(); // .get() turns the jQuery collection into a plain JS array
-  }
-  
+}
+
+// Helper Function
+function arraysEqual(a, b) 
+{
+  return a.length === b.length && a.every((val, idx) => val === b[idx]);
+}
+
 // Defines behavoir for check answer button
 $(document).ready(function()
 {
     $('#getAnswersBtn').on('click', function()
     {
+      let alert;
       let answers = getTableRowValues();
-      console.log(answers);
+      if (arraysEqual(answers,content[current_question - 1].answer))
+      {
+        alert = $(`<div class="alert alert-success" role="alert">
+        That is Correct!
+          </div>`);
+      }
+      else
+      {
+        alert = $(`<div class="alert alert-secondary" role="alert">
+        That is Wrong!
+          </div>`);
+      }
+
+      $("#alert").empty();
+      $("#alert").append(alert);
     });
 });
   
@@ -114,5 +138,52 @@ $(document).ready(function()
     
         // finally, ensure this label has .active (Bootstrap toggle)
         $(this).closest('label').addClass('active');
+    
+        // Save the answers
+        let answer = getTableRowValues();
+        save_answer(answer, current_question);
+
+        // Check to see if the check button can be activated
+        checkReadyToSubmit();
     });
 });
+
+function checkReadyToSubmit()
+{
+  let answer = getTableRowValues();
+
+  if (! answer.includes("")){
+    $('#getAnswersBtn').prop('disabled', false);
+  }
+  else
+  {
+    $('#getAnswersBtn').prop('disabled', true);
+  }
+}
+
+// Toggles values that have been saved
+function toggleLoaded() 
+{
+  const values = current_answers[0];    // e.g. ['E', 'A', '', 'D', ...]
+  
+  $('.fretboard tbody tr').each(function(i) 
+  {
+    const valueToToggle = values[i] || '';
+    const $rowInput = $(this).find('input[type="radio"]');
+
+    if (valueToToggle) 
+    {
+      // scope your selector *within* this row
+      const $target = $rowInput.filter('[value="' + valueToToggle + '"]');
+      $target.prop('checked', true);
+      // if you’re using Bootstrap button-toggles, also toggle the .active class:
+      $target.closest('label').addClass('active');
+    } 
+    else 
+    {
+      // optional: clear this row
+      $rowInput.prop('checked', false)
+               .closest('label').removeClass('active');
+    }
+  });
+}

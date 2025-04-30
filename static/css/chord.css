@@ -13,7 +13,7 @@
   .fretboard td {
     border: 2px dotted #ccc;
     padding: 0;
-    height: 80px;
+    height: 40px; /* Controls height of fretboard */
     position: relative;
   }
 
