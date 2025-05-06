@@ -8,89 +8,83 @@ lesson_plan = {
         "title": "Getting Started",
         "description": "how to read guitar tabs and the basics", 
         "completed": False,
-        "lesson_id": 0
+        "lesson_id": 1
     },
     1:{
         "title": "C Major",
         "description": "the basic, open C major shape", 
         "completed": False,
-        "lesson_id": 1
+        "lesson_id": 2
     },
     2: {
         "title": "A Major",
         "description": "the basic, open A major shape", 
         "completed": False,
-        "lesson_id": 2
+        "lesson_id": 3
     },
     3: {
         "title": "G Major",
         "description": "the basic, open G major shape", 
         "completed": False,
-        "lesson_id": 3
+        "lesson_id": 4
     },
     4 : {
         "title": "Quiz 1",
-        "description": "the basic, open E major shape", 
+        "description": "test understanding of the lessons above", 
         "completed": False,
-        "lesson_id": 4
+        "lesson_id": 5
     },
     5 : {
         "title": "D Major",
         "description": "the basic, open D major shape",
         "completed": False,
-        "lesson_id": 5
+        "lesson_id": 6
     }
 }
 
 lesson_content = {
-    0: {
+    0: [# Meta Data
+        {
+            "lessons": ["Getting Started", "C Major","A Major", "G Major"],
+
+        },
+        # Lesson Data
+        {
             "chord": "Getting Started",
-            "text": "Text for page",
             "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
-            "future_lessons": ["Getting Started", "C Major","A Major", "G Major"],
             "notes": ["A", "E", "A", "C#", "E"],
             "video": "video link",
             "audio": "file path",
-            "next": "/learn/1",
-            "back": "/lesson_plan",
-            "order": 1
+            "order": 1,
+            "lesson_id": 1
         },
-    1: {
+        {
             "chord": "C Major",
-            "text": "Text for page",
             "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
-            "future_lessons": ["Getting Started", "C Major","A Major", "G Major"],
             "notes": ["A", "E", "A", "C#", "E"],
             "video": "video link",
             "audio": "file path",
-            "next": "/learn/2",
-            "back": "/learn/0",
-            "order": 2
+            "order": 2,
+            "lesson_id": 2
         },
-    2: {
-        "chord": "A Major",
-        "text": "Text for page",
-        "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
-        "future_lessons": ["Getting Started", "C Major","A Major", "G Major"],
-        "notes": ["A", "E", "A", "C#", "E"],
-        "video": "video link",
-        "audio": "file path",
-        "next": "/learn/3",
-        "back": "/learn/1",
-        "order": 3
-    },
-    3: {
-        "chord": "G Major",
-        "text": "Text for page",
-        "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
-        "future_lessons": ["Getting Started", "C Major","A Major", "G Major"],
-        "notes": ["A", "E", "A", "C#", "E"],
-        "video": "video link",
-        "audio": "file path",
-        "next": "/lesson_plan",
-        "back": "/learn/2",
-        "order": 4
-    }
+        {
+            "chord": "A Major",
+            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
+            "notes": ["A", "E", "A", "C#", "E"],
+            "video": "video link",
+            "audio": "file path",
+            "order": 3,
+            "lesson_id": 3
+        },
+        {
+            "chord": "G Major",
+            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
+            "notes": ["A", "E", "A", "C#", "E"],
+            "video": "video link",
+            "audio": "file path",
+            "order": 4,
+            "lesson_id": 4
+        }]
 }
 
 quiz_content = {
@@ -101,12 +95,14 @@ quiz_content = {
         "task": "Play an A Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
         "answer": ['E', 'A', 'E', 'A', 'C#', 'X'],
+        "user": [],
     },
     # Question 2
     {
         "task": "Sample Questions",
         "directions": "Please Select the best answer.",
-        "answer": "a",
+        "answer": "A",
+        "user": [],
         "options": [
                     { "value": "A", "text": "Choice A" },
                     { "value": "B", "text": "Choice B" },
@@ -119,18 +115,22 @@ quiz_content = {
         "task": "Play an A Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
         "answer": ['E', 'A', 'E', 'A', 'C#', 'X'],
+        "user": []
     },
      # Question 4
     {
         "task": "Play an A Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
         "answer": ['E', 'A', 'E', 'A', 'C#', 'X'],
+        "user": []
     }
 ]
     }
 
+# Handles Peristatnce of lesson during learn section 
+current_lesson_id = 1
+
 # Handles Peristatnce of answers during quiz section 
-current_answers = [[],'','']
 current_question = 1
 
 # ROUTES
@@ -144,16 +144,25 @@ def lessons():
 
 @app.route('/learn/<id>')
 def learn(id):
-    id = int(id)
-    return render_template('learn.html',lesson_content = lesson_content[id])  
+    idx = int(id)
+
+    # Route the id to section 0
+    if (0 <= idx and idx <= 3):
+        idx = 0
+
+    return render_template('learn.html',lesson_content = lesson_content[idx], target_id = (current_lesson_id))  
 
 @app.route('/quiz/<id>')
 def quiz(id):
     id = int(id)
     return render_template('quiz_layout.html',
                             quiz_content = quiz_content[id],
-                            current_question = current_question, 
-                            current_answers = current_answers)  
+                            current_question = current_question)
+
+@app.route('/results/<id>')
+def results(id):
+    id = int(id)
+    return render_template('results.html', quiz_content = quiz_content[id])   
 
 # Endpoints for templates
 @app.route('/chord_quiz', methods=['GET'])
@@ -176,12 +185,54 @@ def save_answer():
     idx = json_data[1] - 1
     
     # Add client to list if they arent already there
-    current_answers[idx] = answer
+    quiz_content[0][idx]["user"] = answer
 
-    print(current_answers)
+    print(quiz_content[0][idx])
 
     #send back the WHOLE array of sales, so the client can redisplay it
     return jsonify(current_answers = current_answers)
+
+@app.route('/mark_complete', methods=['GET', 'POST'])
+def mark_complete():
+    global lesson_plan
+
+    json_data = request.get_json()   
+
+    idx = json_data["idx"] - 1
+    lesson_plan[idx]['completed'] = True
+
+    return jsonify(current_question = current_question)
+
+
+@app.route('/next_lesson', methods=['GET', 'POST'])
+def next_lesson():
+    global current_lesson_id 
+
+    current_lesson_id += 1
+
+    print(current_lesson_id)
+
+    #send back the array of sales, so the client can redisplay it
+    return jsonify(current_lesson_id = current_lesson_id)
+
+@app.route('/prev_lesson', methods=['GET', 'POST'])
+def prev_lesson():
+    global current_lesson_id 
+
+    current_lesson_id -= 1
+
+    print(current_question)
+    #send back the array of sales, so the client can redisplay it
+    return jsonify(current_lesson_id = current_lesson_id)
+
+@app.route('/reset_lesson', methods=['GET', 'POST'])
+def reset_lesson():
+    global current_lesson_id 
+
+    current_lesson_id = 1
+
+    #send back the array of sales, so the client can redisplay it
+    return jsonify(current_question = current_question)
 
 @app.route('/quiz/next_question', methods=['GET', 'POST'])
 def next_question():

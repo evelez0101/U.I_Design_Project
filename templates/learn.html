@@ -1,13 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
 <script>
   let content = {{lesson_content|tojson}}
-  console.log(content.chord)
+  let total = {{ lesson_content|length }}
+  let targetId = {{target_id | tojson}}
 </script>
 
 <script type="text/javascript" src="{{ url_for('static', filename = 'js/learn.js') }}"></script>
@@ -21,93 +22,117 @@
     <div class = "col">
       <!-- Progress Bar with steps -->
       <ul class="progressbar">
-        {% for lesson in lesson_content["future_lessons"] %}
+        {% for lesson in lesson_content[0]["lessons"] %}
           <li> {{lesson}} </li>
         {% endfor %}
       </ul>
-
     </div>
   </div>
 
-  <!-- Chord Name -->
-  <div class = "row mt-n4">
+  <!-- Lesson Content -->
+  <div class = "row">
     <div class = "col">
-      <div class="text-center my-4">
-        <h1 class="display-4 font-weight-bold">{{lesson_content['chord']}}</h1>
-        <hr class="w-25 mx-auto">
-      </div>
-    </div>
-  </div>  
-
-  <!-- Content for Lesson -->
-  <div class = "row mt-n2"> 
-    <div class = "col-2"></div>
-    <div class = "col-4">
-      <img 
-          class="w-75 d-block rounded" 
-          style = "border: 2px dotted black; border-radius: 5px;"
-          src = " {{lesson_content["image"]}} "
-          alt = "chord">
-    </div>
-    
-    <!-- Right Column -->
-    <div class = "col-4">
       
-      <!-- Text Portion -->
-      <div class = "row mt-2">
-        
-        <p class = "lead font-weight-normal text-dark"> 
-          The open <strong> {{lesson_content["chord"]}} </strong> shape consist of the
-          following notes: 
-            {% for note in lesson_content["notes"] %}
-              <span class="badge badge-light border mx-1">{{note}}</span>
-            {% endfor %}
+      <div id="cardCarousel" class="carousel slide" data-bs-interval="false">
+        <div class="carousel-inner">
 
-          going down the fretboard. The open strings are bolded.
-        </p>
-
-      </div>
-
-      <!-- Media Section -->
-      <div class = "row mt-4">      
-        <div class = "col d-flex justify-content-center">
-            <button
-                type= "button" 
-                data-toggle="modal"
-                data-target="#audioModal"
-                class= "btn bg-base rounded-pill shadow"> 
+          <!-- Lesson Content-->
+          {% for card in lesson_content[1:] %}
+          <div class="carousel-item {% if loop.first %} active {% endif %}" id = "{{card.lesson_id}}">
+            <div class="card rounded"
+                  style = "border: 2px solid var(--color-primary)">
+              <div class="card-body">
                 
-                <div class = "gap-2">
-                  <i class="bi bi-soundwave"></i>
-                  <span class = "text-dark">Hear it!</span>
-                </div>
+                <!-- Title -->
+                <div class = "container mb-4">
+                  <div class = "row mt-n4">
+                    <div class = "col text-center my-4">
+                        <h1 class="display-4 font-weight-bold">{{card['chord']}}</h1>
+                        <hr class="w-25 mx-auto bg-base">
+                    </div>
+                  </div>  
+                
+                  <!-- Content for Lesson -->
+                  <div class = "row mt-n2"> 
 
-            </button>
-            
-            <button  type= "button" 
-                id = "see" 
-                data-toggle="modal"
-                data-target="#youtubeModal"
-                class= "btn bg-base rounded-pill shadow mx-4"> 
-                <div class = "gap-2">
-                  <i class="bi bi-play-btn-fill me-2" style="font-size: 1.1em;"></i>
-                  <span class = "lr-2">See it!</span>
+                    <!-- Left Spacer -->
+                    <div class = "col-1"></div>
+
+                    <!-- Left Column -->
+                    <div class = "col-5">
+                      <img 
+                          class="w-75 d-block rounded" 
+                          style = "border: 2px dotted black; border-radius: 5px;"
+                          src = " {{card["image"]}} "
+                          alt = "chord">
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class = "col-5">
+                      
+                      <!-- Text Portion -->
+                      <div class = "row mt-2">
+                        
+                        <p class = "lead font-weight-normal text-dark"> 
+                          The open <strong> {{card["chord"]}} </strong> shape consist of the
+                          following notes: 
+                            {% for note in card["notes"] %}
+                              <span class="badge badge-light border mx-1">{{note}}</span>
+                            {% endfor %}
+                
+                          going down the fretboard. The open strings are bolded.
+                        </p>
+                
+                      </div>
+                
+                      <!-- Media Section -->
+                      <div class = "row mt-4">      
+                        <div class = "col d-flex justify-content-center">
+                            <button
+                                type= "button" 
+                                data-toggle="modal"
+                                data-target="#audioModal"
+                                class= "btn bg-base rounded-pill shadow"> 
+                                
+                                <div class = "gap-2">
+                                  <i class="bi bi-soundwave"></i>
+                                  <span class = "text-dark">Hear it!</span>
+                                </div>
+                
+                            </button>
+                            
+                            <button  type= "button" 
+                                id = "see" 
+                                data-toggle="modal"
+                                data-target="#youtubeModal"
+                                class= "btn bg-base rounded-pill shadow mx-4"> 
+                                <div class = "gap-2">
+                                  <i class="bi bi-play-btn-fill me-2" style="font-size: 1.1em;"></i>
+                                  <span class = "lr-2">See it!</span>
+                                </div>
+                            </button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Right Spacer -->
+                    <div class = "col-1"></div>
+
+                  </div>
                 </div>
-            </button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
 
         </div>
       </div>
-
     </div>
-    
-    <div class = "col-2"></div>
   </div>
-
   <!-- Bottom Buttons -->
   <div class = "row mb-4 mt-4">
-    <div class = "col-2"></div>
     
-    <div class = "col-1">
+    <div class = "col">
         <button 
             type= "button" 
             id = "back" 
@@ -116,13 +141,13 @@
         </button>
     </div>
     
-    <div class = "col-6"></div>
+    <div class = "col-9"></div>
     
-    <div class = "col-1">
+    <div class = "col">
         <button 
             type= "button" 
             id = "next" 
-            class= "btn bg-accent rounded-2"
+            class= "btn btn-lg bg-accent rounded-2"
             style = "color: white">
             Next
         </button>
@@ -239,40 +264,23 @@ aria-hidden="true"
       audioEl.pause();
       audioEl.currentTime = 0;
     });
-</script>
-
-<script>
-
-    // Handle marking lesson as complete
-    $(document).ready(function()
-    {
-        $('#next').on('click', function()
-        {
-          window.location.href = content["next"];
-        });
-
-        $('#back').on('click', function()
-        {
-          window.location.href = content["back"];
-        });
-    });
 
     $(document).ready(function()
     {
       // Replace VIDEO_ID with your YouTube video ID:
       const youtubeSrc = "https://youtu.be/dQw4w9WgXcQ?si=-b9XEajo-RclUa2d?autoplay=1&rel=0";
-  
+
       // When the modal is shown, set the iframe src to start playback
       $('#youtubeModal').on('shown.bs.modal', function () {
-        $('#youtubeFrame').attr('src', youtubeSrc);
+      $('#youtubeFrame').attr('src', youtubeSrc);
       });
-  
+
       // When the modal is hidden, remove the src so the video stops
       $('#youtubeModal').on('hide.bs.modal', function () {
-        $('#youtubeFrame').attr('src', '');
+      $('#youtubeFrame').attr('src', '');
       });
     });
-  </script>
+</script>
 
 
 

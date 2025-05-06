@@ -1,106 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Fretboard Grid with Radio Buttons</title>
-  <!-- Bootstrap for reset & utility classes -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  <style>
-    /* 1) Full-width table with fixed layout */
-    .fretboard {
-      width: 100%;
-      table-layout: fixed;
-      border-collapse: collapse;
-      margin: 2rem 0;
-    }
-    /* 2) Crisp light‐grey grid lines */
-    .fretboard th,
-    .fretboard td {
-      border: 1px solid #ccc;
-      padding: 0;
-      height: 80px;
-      position: relative;
-    }
-    /* 3) Thicker “nut” at fret 0→1 boundary */
-    .fretboard th:nth-child(2),
-    .fretboard td:nth-child(2) {
-      border-left: 2px solid #444;
-    }
-    /* 4) Shade frets 3 & 5 */
-    .fretboard th:nth-child(5),
-    .fretboard td:nth-child(5),
-    .fretboard th:nth-child(7),
-    .fretboard td:nth-child(7) {
-      background: #f8f8f8;
-    }
-    /* 5) Hide actual radio inputs */
-    .fret-radio {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    /* 6) Label style: black circle on top of grid, white text */
-    .fret-label {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #000;
-      color: #fff;
-      font-size: 0.9rem;
-      font-weight: bold;
-      cursor: pointer;
-      user-select: none;
-    }
-    /* 7) When checked, keep same look (no outline) */
-    .fret-radio:checked + .fret-label {
-      box-shadow: inset 0 0 0 2px #e76f51;
-    }
-    /* 8) String labels at left/right */
-    .string-label {
-      font-weight: bold;
-      font-family: sans-serif;
-      text-align: right;
-      padding-right: 0.5rem;
-    }
-    .string-label.right {
-      text-align: left;
-      padding-left: 0.5rem;
-    }
-    /* 9) Fret numbers in header */
-    thead th {
-      font-size: 0.8rem;
-      color: #444;
-      text-align: center;
-      height: 30px;
-      vertical-align: bottom;
-      padding-bottom: 4px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap Carousel Cards with jQuery Controls</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+  <div class="container my-5">
+    <div id="cardCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Card 1</h5>
+              <p class="card-text">Content for card 1.</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Card 2</h5>
+              <p class="card-text">Content for card 2.</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Card 3</h5>
+              <p class="card-text">Content for card 3.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Previous control -->
+      <button id="prevBtn" class="carousel-control-prev" type="button" data-bs-target="#cardCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+    </div>
 
-  <div class="container-fluid px-4">
-    <h3 class="text-center my-4">Fretboard (Frets 0–6)</h3>
-    <table class="fretboard">
-      <thead>
-        <tr>
-          <th></th>
-          <th>0</th><th>1</th><th>2</th>
-          <th>3</th><th>4</th>
-          <th>5</th><th>6</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="fret-body"></tbody>
-    </table>
+    <!-- Explicit controls -->
+    <div class="d-flex justify-content-center align-items-center gap-2 mt-3">
+      <button id="nextBtn" class="btn btn-primary">Next</button>
+      <input type="number" id="slideIndex" class="form-control" style="width: 80px;" min="1" placeholder="#" />
+      <button id="goBtn" class="btn btn-secondary">Go</button>
+    </div>
   </div>
 
+  <!-- jQuery (required for below) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Bootstrap Bundle (includes Carousel JS) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(function() {
+      var $carouselEl = $('#cardCarousel');
+      var carousel = new bootstrap.Carousel($carouselEl[0], { wrap: false });
+      var $items = $carouselEl.find('.carousel-item');
+      var total = $items.length;
+
+      var $nextBtn = $('#nextBtn');
+      var $prevBtn = $('#prevBtn');
+      var $goBtn = $('#goBtn');
+      var $slideInput = $('#slideIndex');
+
+      // Set max for input
+      $slideInput.attr('max', total);
+
+      function updateControls() {
+        var activeIndex = $items.index($carouselEl.find('.carousel-item.active'));
+        $nextBtn.prop('disabled', activeIndex === total - 1);
+        $prevBtn.prop('disabled', activeIndex === 0);
+        $slideInput.val(activeIndex + 1);
+      }
+
+      // Initial state
+      updateControls();
+
+      $nextBtn.on('click', function() {
+        carousel.next();
+      });
+
+      $prevBtn.on('click', function() {
+        carousel.prev();
+      });
+
+      $goBtn.on('click', function() {
+        var idx = parseInt($slideInput.val(), 10) - 1;
+        if (!isNaN(idx) && idx >= 0 && idx < total) {
+          carousel.to(idx);
+        }
+      });
+
+      $carouselEl.on('slid.bs.carousel', updateControls)
+                  .on('slide.bs.carousel', function() { $slideInput.blur(); });
+    });
+  </script>
 </body>
 </html>
