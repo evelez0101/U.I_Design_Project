@@ -8,44 +8,65 @@ lesson_plan = {
         "title": "Getting Started",
         "description": "how to read guitar tabs and the basics", 
         "completed": False,
+        "type": "lesson"
         "lesson_id": 1
     },
     1:{
         "title": "C Major",
         "description": "the basic, open C major shape", 
         "completed": False,
+        "type": "lesson"
         "lesson_id": 2
     },
     2 : {
         "title": "Quiz 1",
         "description": "test understanding of the lessons above", 
         "completed": False,
+        "type": "quiz"
         "lesson_id": 3
     },
     3: {
         "title": "A Major",
         "description": "the basic, open A major shape", 
         "completed": False,
+        "type": "lesson"
         "lesson_id": 4
     },
     4: {
         "title": "G Major",
         "description": "the basic, open G major shape", 
         "completed": False,
+        "type": "lesson"
         "lesson_id": 5
     },
-    5 : {
-        "title": "D Major",
+    5: {
+        "title": "Quiz 2",
+        "description": "test understanding of the lessons above", 
+        "completed": False,
+        "type": "quiz"
+        "lesson_id": 3
+    },
+    6: {
+        "title": "E Major",
         "description": "the basic, open D major shape",
         "completed": False,
+        "type": "lesson"
         "lesson_id": 6
     },
-    6 : {
+    7: {
         "title": "D Major",
         "description": "the basic, open D major shape",
         "completed": False,
+        "type": "lesson"
         "lesson_id": 7
-    }
+    },
+    8: {
+        "title": "Quiz 2",
+        "description": "test understanding of the lessons above", 
+        "completed": False,
+        "type": "quiz",
+        "lesson_id": 3
+    },
 }
 
 lesson_content = {
