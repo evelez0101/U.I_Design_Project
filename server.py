@@ -84,6 +84,15 @@ lesson_content = {
             "audio": "file path",
             "order": 4,
             "lesson_id": 4
+        },
+        {
+            "chord": "G Major",
+            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
+            "notes": ["A", "E", "A", "C#", "E"],
+            "video": "video link",
+            "audio": "file path",
+            "order": 5,
+            "lesson_id": 5
         }]
 }
 
