@@ -76,6 +76,7 @@ lesson_content = {
             "video": "video link",
             "audio": "file path",
             "order": 1,
+            "type": "info",
             "lesson_id": 1
         },
         {
