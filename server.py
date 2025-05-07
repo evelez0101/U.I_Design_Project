@@ -16,21 +16,21 @@ lesson_plan = {
         "completed": False,
         "lesson_id": 2
     },
-    2: {
-        "title": "A Major",
-        "description": "the basic, open A major shape", 
+    2 : {
+        "title": "Quiz 1",
+        "description": "test understanding of the lessons above", 
         "completed": False,
         "lesson_id": 3
     },
     3: {
-        "title": "G Major",
-        "description": "the basic, open G major shape", 
+        "title": "A Major",
+        "description": "the basic, open A major shape", 
         "completed": False,
         "lesson_id": 4
     },
-    4 : {
-        "title": "Quiz 1",
-        "description": "test understanding of the lessons above", 
+    4: {
+        "title": "G Major",
+        "description": "the basic, open G major shape", 
         "completed": False,
         "lesson_id": 5
     },
@@ -39,18 +39,38 @@ lesson_plan = {
         "description": "the basic, open D major shape",
         "completed": False,
         "lesson_id": 6
+    },
+    6 : {
+        "title": "D Major",
+        "description": "the basic, open D major shape",
+        "completed": False,
+        "lesson_id": 7
     }
 }
 
 lesson_content = {
     0: [# Meta Data
         {
-            "lessons": ["Getting Started", "C Major","A Major", "G Major"],
-
+            "lessons": ["Getting Started", "Guitar ","Chords", "Practice"],
         },
-        # Lesson Data
         {
             "chord": "Getting Started",
+            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
+            "notes": ["A", "E", "A", "C#", "E"],
+            "video": "video link",
+            "audio": "file path",
+            "order": 1,
+            "type": "info",
+            "lesson_id": 1
+        },
+        ],
+        # Lesson Data
+    1: [
+        {
+            "lessons": ["C Major", "General Shape"],
+        },
+        {
+            "chord": "C Major",
             "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
             "notes": ["A", "E", "A", "C#", "E"],
             "video": "video link",
@@ -59,14 +79,18 @@ lesson_content = {
             "lesson_id": 1
         },
         {
-            "chord": "C Major",
+            "chord": "C Major Shape",
             "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
             "notes": ["A", "E", "A", "C#", "E"],
             "video": "video link",
             "audio": "file path",
-            "order": 2,
+            "order": 1,
+            "type": "chord",
             "lesson_id": 2
-        },
+        }
+        ],
+
+     2: [
         {
             "chord": "A Major",
             "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
@@ -145,10 +169,6 @@ def lessons():
 @app.route('/learn/<id>')
 def learn(id):
     idx = int(id)
-
-    # Route the id to section 0
-    if (0 <= idx and idx <= 3):
-        idx = 0
 
     return render_template('learn.html',lesson_content = lesson_content[idx], target_id = (current_lesson_id))  
 
