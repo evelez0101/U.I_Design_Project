@@ -79,6 +79,7 @@ function display_question()
 function save_answer(answer, question_num)
 {
     console.log("save called");
+    console.log(answer)
     // Call to backend  
     let data = [answer, question_num];
 
@@ -91,6 +92,8 @@ function save_answer(answer, question_num)
         success: function(result)
         {
             console.log("success save_answer")
+            console.log(result['quiz_content']);
+            content[current_question - 1] = result['quiz_content']
         },
         error: function(request, status, error)
         {
@@ -176,6 +179,7 @@ $(document).ready(function()
     {
       if (current < total) 
       {
+        $("#alert").empty();
         current++;
         next_question();
         updateProgress();
@@ -187,11 +191,61 @@ $(document).ready(function()
     {
       if (current > 1) 
       {
-          current--;
-          prev_question();
-          updateProgress();
+        $("#alert").empty();
+        current--;
+        prev_question();
+        updateProgress();
       }
     });
 
     display_question();
 });
+
+
+// Defines behavoir for check answer button
+$(document).ready(function()
+{
+    $('#getAnswersBtn').on('click', function()
+    {
+      
+      if (checkAnswers())
+      {
+        alert = $(`<div class="alert alert-success" role="alert">
+        That is Correct!
+          </div>`);
+      }
+      else
+      {
+        alert = $(`<div class="alert alert-secondary" role="alert">
+        That is Wrong!
+          </div>`);
+      }
+
+      $("#alert").empty();
+      $("#alert").append(alert);
+    });
+});
+
+function checkAnswers()
+{
+  let userAnswer = content[current_question - 1]['user']
+  let answer = content[current_question - 1]['answer']
+
+  console.log(userAnswer);
+  console.log(answer);
+
+  if (Array.isArray(answer)) 
+  {
+    return (arraysEqual(userAnswer,answer));
+  }
+ 
+  return(userAnswer === answer);
+}
+
+function arraysEqual(a, b) 
+{
+  return ( Array.isArray(a) && Array.isArray(b) &&      // both must be arrays
+            a.length === b.length &&                      // same length
+            a.every((el, i) => el === b[i])               // each element equal
+          );
+}

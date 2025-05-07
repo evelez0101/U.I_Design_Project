@@ -164,8 +164,8 @@ function checkReadyToSubmit()
 // Toggles values that have been saved
 function toggleLoaded() 
 {
-  const values = current_answers[0];    // e.g. ['E', 'A', '', 'D', ...]
-  
+  const values = content[current_question - 1]['user'];
+
   $('.fretboard tbody tr').each(function(i) 
   {
     const valueToToggle = values[i] || '';

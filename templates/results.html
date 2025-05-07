@@ -39,14 +39,13 @@
 </div>
 
 <script>
-    function arraysEqual(a, b) 
-    {
-        return (
-            Array.isArray(a) && Array.isArray(b) &&      // both must be arrays
+  function arraysEqual(a, b) 
+  {
+    return ( Array.isArray(a) && Array.isArray(b) &&      // both must be arrays
             a.length === b.length &&                      // same length
             a.every((el, i) => el === b[i])               // each element equal
-        );
-    }
+          );
+  }
 
     let content = {{quiz_content|tojson}};
 

@@ -93,6 +93,7 @@ $(document).ready(function()
         else
         {
             reset_lesson();
+            mark_complete(current);
             window.location.href = "/lesson_plan";
         }
     });

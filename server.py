@@ -99,7 +99,7 @@ quiz_content = {
     },
     # Question 2
     {
-        "task": "Sample Questions",
+        "task": "Test Question",
         "directions": "Please Select the best answer.",
         "answer": "A",
         "user": [],
@@ -112,16 +112,16 @@ quiz_content = {
     },
     # Question 3
     {
-        "task": "Play an A Major Chord",
+        "task": "Play an C Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
-        "answer": ['E', 'A', 'E', 'A', 'C#', 'X'],
+        "answer": ['X', 'X', 'X', 'X', 'X', 'X'],
         "user": []
     },
      # Question 4
     {
-        "task": "Play an A Major Chord",
+        "task": "Play an G Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
-        "answer": ['E', 'A', 'E', 'A', 'C#', 'X'],
+        "answer": ['X', 'X', 'X', 'X', 'X', 'X'],
         "user": []
     }
 ]
@@ -177,7 +177,7 @@ def mp_quiz():
 # AJAX FUNCTIONS
 @app.route('/quiz/save_answer', methods=['GET', 'POST'])
 def save_answer():
-    global current_answers 
+    global quiz_content 
 
     json_data = request.get_json()   
 
@@ -190,7 +190,7 @@ def save_answer():
     print(quiz_content[0][idx])
 
     #send back the WHOLE array of sales, so the client can redisplay it
-    return jsonify(current_answers = current_answers)
+    return jsonify(quiz_content = quiz_content[0][idx])
 
 @app.route('/mark_complete', methods=['GET', 'POST'])
 def mark_complete():
