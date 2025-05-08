@@ -8,56 +8,56 @@ lesson_plan = {
         "title": "Getting Started",
         "description": "how to read guitar tabs and the basics", 
         "completed": False,
-        "type": "lesson"
+        "type": "lesson",
         "lesson_id": 1
     },
     1:{
         "title": "C Major",
         "description": "the basic, open C major shape", 
         "completed": False,
-        "type": "lesson"
+        "type": "lesson",
         "lesson_id": 2
     },
     2 : {
         "title": "Quiz 1",
         "description": "test understanding of the lessons above", 
         "completed": False,
-        "type": "quiz"
+        "type": "quiz",
         "lesson_id": 3
     },
     3: {
         "title": "A Major",
         "description": "the basic, open A major shape", 
         "completed": False,
-        "type": "lesson"
+        "type": "lesson",
         "lesson_id": 4
     },
     4: {
         "title": "G Major",
         "description": "the basic, open G major shape", 
         "completed": False,
-        "type": "lesson"
+        "type": "lesson",
         "lesson_id": 5
     },
     5: {
         "title": "Quiz 2",
         "description": "test understanding of the lessons above", 
         "completed": False,
-        "type": "quiz"
+        "type": "quiz",
         "lesson_id": 3
     },
     6: {
         "title": "E Major",
         "description": "the basic, open D major shape",
         "completed": False,
-        "type": "lesson"
+        "type": "lesson",
         "lesson_id": 6
     },
     7: {
         "title": "D Major",
         "description": "the basic, open D major shape",
         "completed": False,
-        "type": "lesson"
+        "type": "lesson",
         "lesson_id": 7
     },
     8: {
@@ -72,45 +72,42 @@ lesson_plan = {
 lesson_content = {
     0: [# Meta Data
         {
-            "lessons": ["Getting Started", "Guitar ","Chords", "Practice"],
+            "lessons": ["Visualizing the Fretboard", "Fret Diagram"],
         },
         {
-            "chord": "Getting Started",
-            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
-            "notes": ["A", "E", "A", "C#", "E"],
-            "video": "video link",
-            "audio": "file path",
+            "chord": "Guitar Parts",
+            "image": "https://lh4.googleusercontent.com/proxy/Zx1cspM_AYlp_Z8fTd3iKLkJWG-TI_27IMgcwzu58SRqcSjGL9-9Tjtjsm6JVThgWI8sDx3cwxqCw7sb6FLOBnBSL-s4-xrnyVliTkG0V0w",
+            "description": "This is general physical layout of your typical guitar. Starting from the nut and going right, the vertical lines dividing the fretboard \
+                            (frets) are numbered starting from 1, all the way to however many frets your guitar has.",
+            "type": "lessonzero",
             "order": 1,
-            "type": "info",
-            "lesson_id": 1
+            "lesson_id": 0
         },
+        {
+            "chord": "Diagram",
+            "image": "https://acousticlife.tv/wp-content/uploads/2023/06/How-to-read-guitar-chords1-1160x653.jpg",
+            "description": "As the image shows, the dots tell you where to place your fingers, the number indicates which finger to use, and the x's or o's above the nut indicate \
+                            whether to not play the string, or play it openly respectively.",
+            "type": "lessonzero",
+            "order": 2,
+            "lesson_id": 0
+        }
         ],
         # Lesson Data
     1: [
         {
-            "lessons": ["C Major", "General Shape"],
+            "lessons": ["C Major"],
         },
         {
             "chord": "C Major",
             "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
-            "notes": ["A", "E", "A", "C#", "E"],
+            "notes": ["X", "C", "E", "G", "C", "E"],
             "video": "video link",
             "audio": "file path",
-            "order": 1,
             "type": "info",
-            "lesson_id": 1
-        },
-        {
-            "chord": "C Major Shape",
-            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
-            "notes": ["A", "E", "A", "C#", "E"],
-            "video": "video link",
-            "audio": "file path",
             "order": 1,
-            "type": "chord",
-            "lesson_id": 2
-        }
-        ],
+            "lesson_id": 1
+        }],
 
      2: [
         {
@@ -119,27 +116,78 @@ lesson_content = {
             "notes": ["A", "E", "A", "C#", "E"],
             "video": "video link",
             "audio": "file path",
+            "order": 2,
+            "lesson_id": 2
+        },
+        {
+            "chord": "G Major",
+            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
+            "notes": ["A", "E", "A", "C#", "E"],
+            "video": "video link",
+            "audio": "file path",
             "order": 3,
+            "lesson_id": 2
+        },],
+    3: [
+        {
+            "lessons": ["A Major"]
+        },
+        {
+            "chord": "A Major",
+            "image": "https://richterguitar.com/wp-content/uploads/2024/03/A-Major-Version-2.png",
+            "notes": ["X", "A", "E", "A", "C#", "E"],
+            "video": "video link",
+            "audio": "file path",
+            "type": "info",
+            "order": 1,
             "lesson_id": 3
+        }
+    ],
+    4: [
+        {
+            "lessons": ["G Major"]
         },
         {
             "chord": "G Major",
-            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
-            "notes": ["A", "E", "A", "C#", "E"],
+            "image": "https://richterguitar.com/wp-content/uploads/2024/03/G-major.png",
+            "notes": ["G", "B", "D", "G", "B", "G"],
             "video": "video link",
             "audio": "file path",
-            "order": 4,
+            "type": "info",
+            "order": 1,
             "lesson_id": 4
+        }
+    ],
+    6: [
+        {
+            "lessons": ["E Major"]
         },
         {
-            "chord": "G Major",
-            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
-            "notes": ["A", "E", "A", "C#", "E"],
+            "chord": "E Major",
+            "image": "https://richterguitar.com/wp-content/uploads/2024/03/E-Major.png",
+            "notes": ["E", "B", "E", "G#", "B", "E"],
             "video": "video link",
             "audio": "file path",
-            "order": 5,
-            "lesson_id": 5
-        }]
+            "type": "info",
+            "order": 1,
+            "lesson_id": 6
+        }
+    ],
+    7: [
+        {
+            "lessons": ["D Major"]
+        },
+        {
+            "chord": "D Major",
+            "image": "https://richterguitar.com/wp-content/uploads/2024/03/D-Major.png",
+            "notes": ["X", "X", "D", "A", "D", "F#"],
+            "video": "video link",
+            "audio": "file path",
+            "type": "info",
+            "order": 1,
+            "lesson_id": 7
+        }
+    ],
 }
 
 quiz_content = {
@@ -147,9 +195,9 @@ quiz_content = {
 0:[ 
     # Question 1
     {
-        "task": "Play an A Major Chord",
+        "task": "Play an C Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
-        "answer": ['E', 'A', 'E', 'A', 'C#', 'X'],
+        "answer": ["X", "C", "E", "G", "C", "E"],
         "user": [],
     },
     # Question 2
@@ -167,19 +215,73 @@ quiz_content = {
     },
     # Question 3
     {
-        "task": "Play an C Major Chord",
+        "task": "Test Question",
+        "directions": "Please Select the best answer.",
+        "answer": "A",
+        "user": [],
+        "options": [
+                    { "value": "A", "text": "Choice A" },
+                    { "value": "B", "text": "Choice B" },
+                    { "value": "C", "text": "Choice C" },
+                    { "value": "D", "text": "Choice D" }
+                    ]
+    }],
+5:[ 
+    # Question 1
+    {
+        "task": "Play an A Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
-        "answer": ['X', 'X', 'X', 'X', 'X', 'X'],
-        "user": []
+        "answer": ["X", "A", "E", "A", "C#", "E"],
+        "user": [],
     },
-     # Question 4
+    # Question 2
     {
         "task": "Play an G Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
-        "answer": ['X', 'X', 'X', 'X', 'X', 'X'],
-        "user": []
-    }
-]
+        "answer": ["G", "B", "D", "G", "B", "G"],
+        "user": [],
+    },
+    # Question 3
+    {
+        "task": "Test Question",
+        "directions": "Please Select the best answer.",
+        "answer": "A",
+        "user": [],
+        "options": [
+                    { "value": "A", "text": "Choice A" },
+                    { "value": "B", "text": "Choice B" },
+                    { "value": "C", "text": "Choice C" },
+                    { "value": "D", "text": "Choice D" }
+                    ]
+    },],
+8:[ 
+    # Question 1
+    {
+        "task": "Play an E Major Chord",
+        "directions": "Please Select which notes to play and which notes to play.",
+        "answer": ["E", "B", "E", "G#", "B", "E"],
+        "user": [],
+    },
+    # Question 2
+    {
+        "task": "Play an D Major Chord",
+        "directions": "Please Select which notes to play and which notes to play.",
+        "answer": ["X", "X", "D", "A", "D", "F#"],
+        "user": [],
+    },
+    # Question 3
+    {
+        "task": "Test Question",
+        "directions": "Please Select the best answer.",
+        "answer": "A",
+        "user": [],
+        "options": [
+                    { "value": "A", "text": "Choice A" },
+                    { "value": "B", "text": "Choice B" },
+                    { "value": "C", "text": "Choice C" },
+                    { "value": "D", "text": "Choice D" }
+                    ]
+    },],
     }
 
 # Handles Peristatnce of lesson during learn section 

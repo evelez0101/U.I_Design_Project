@@ -61,6 +61,78 @@
 
                   <div class = "col-1"></div>
                 </div>
+                <!-- Getting Started page template-->
+                {% elif card['type'] == 'lessonzero' %}
+                <div class = "container mb-4">
+                  <div class = "row mt-n4">
+                    <div class = "col text-center my-4">
+                        <h1 class="display-4 font-weight-bold">{{card['chord']}}</h1>
+                        <hr class="w-25 mx-auto bg-base">
+                    </div>
+                  </div>  
+                
+                  <!-- Content for Lesson -->
+                  <div class = "row mt-n2"> 
+
+                    <!-- Left Spacer -->
+                    <div class = "col-1"></div>
+
+                    <!-- Left Column -->
+                    <div class = "col-5">
+                      <img 
+                          class="w-75 d-block rounded" 
+                          style = "border: 2px dotted black; border-radius: 5px;"
+                          src = " {{card["image"]}} "
+                          alt = "chord">
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class = "col-5">
+                      
+                      <!-- Text Portion -->
+                      <div class = "row mt-2">
+                        
+                        <p class = "lead font-weight-normal text-dark"> 
+                          {{card['description']}}
+                        </p>
+                
+                      </div>
+                
+                      <!-- Media Section -->
+                      <div class = "row mt-4">      
+                        <div class = "col d-flex justify-content-center">
+                            <button
+                                type= "button" 
+                                data-toggle="modal"
+                                data-target="#audioModal"
+                                class= "btn bg-base rounded-pill shadow"> 
+                                
+                                <div class = "gap-2">
+                                  <i class="bi bi-soundwave"></i>
+                                  <span class = "text-dark">Hear it!</span>
+                                </div>
+                
+                            </button>
+                            
+                            <button  type= "button" 
+                                id = "see" 
+                                data-toggle="modal"
+                                data-target="#youtubeModal"
+                                class= "btn bg-base rounded-pill shadow mx-4"> 
+                                <div class = "gap-2">
+                                  <i class="bi bi-play-btn-fill me-2" style="font-size: 1.1em;"></i>
+                                  <span class = "lr-2">See it!</span>
+                                </div>
+                            </button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Right Spacer -->
+                    <div class = "col-1"></div>
+
+                  </div>
+                </div>
                 {% else %}
                 <!-- Title -->
                 <div class = "container mb-4">
@@ -99,7 +171,7 @@
                               <span class="badge badge-light border mx-1">{{note}}</span>
                             {% endfor %}
                 
-                          going down the fretboard. The open strings are bolded.
+                          going down the fretboard. The open strings are shown in the diagram.
                         </p>
                 
                       </div>
