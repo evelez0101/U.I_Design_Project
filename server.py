@@ -203,7 +203,7 @@ quiz_content = {
     },
     # Question 2
     {
-        "task": "Question 2",
+        "task": "Guitar Basics",
         "directions": "What is the name of the vertical divider that sections that guitar and determines what note is played?",
         "answer": "A",
         "user": [],
@@ -218,7 +218,7 @@ quiz_content = {
     },
     # Question 3
     {
-        "task": "Question 3",
+        "task": "Guitar Basics",
         "directions": "When reading a chord shape, what does an X mean?",
         "answer": "B",
         "user": [],
