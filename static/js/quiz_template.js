@@ -11,7 +11,29 @@ function prev_question()
       {
           current_question = result["current_question"];
           display_question();
-          request_question(result["current_question"]);
+          request_question(content[current_question - 1]["type"]);
+      },
+      error: function(request, status, error)
+      {
+          console.log("Error");
+          console.log(request)
+          console.log(status)
+          console.log(error)
+      }
+  });
+}
+
+function reset_question()
+{
+  $.ajax({
+      type: "POST",
+      url: "reset_question",                
+      dataType : "json",
+      contentType: "application/json; charset=utf-8",
+      data : " ",
+      success: function(result)
+      {
+        console.log("sucessful reset");
       },
       error: function(request, status, error)
       {
@@ -37,7 +59,7 @@ function next_question()
         {
             current_question = result["current_question"];
             display_question();
-            request_question(result["current_question"]);
+            request_question(content[current_question - 1]["type"]);
         },
         error: function(request, status, error)
         {
@@ -106,16 +128,19 @@ function save_answer(answer, question_num)
 }
 
 
-function request_question(question_num)
+function request_question(question_type)
 {
   let endpoint = "";
 
-  switch(question_num)
+  console.log("Question type ")
+  console.log(question_type)
+
+  switch(question_type)
   {
-    case 1:
+    case "chord":
       endpoint = "/chord_quiz";
       break;
-    case 2:
+    case "mult":
       endpoint = "/multiple_choice";
       break;
     default:
@@ -168,8 +193,16 @@ $(document).ready(function()
         });
 
       // Buttons
+      if (current === total) 
+      {
+        $('#next').text('Submit');
+      } 
+      else 
+      {
+        $('#next').text('Next');
+      }
+
       $('#prev').prop('disabled', current === 1);
-      $('#next').prop('disabled', current === total);
     }
 
     updateProgress();
@@ -183,6 +216,11 @@ $(document).ready(function()
         current++;
         next_question();
         updateProgress();
+      }
+      else
+      {
+        reset_question();
+        window.location.href = `/results/${quiz_id}`;
       }
     });
 

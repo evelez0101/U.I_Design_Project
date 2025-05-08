@@ -1,7 +1,7 @@
 // Renders Fretboard 
 $(document).ready(function() {
     // Standard tuning, low-E to high-E
-    const tuning = ['E','A','D','G','B','E'];
+    const tuning = ['E','B','G','D','A','E'];
     
     // Note names per semitone (0=C,...11=B)
     const names  = [

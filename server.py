@@ -197,28 +197,32 @@ quiz_content = {
     {
         "task": "Play an C Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
-        "answer": ["X", "C", "E", "G", "C", "E"],
+        "answer": ["E", "C", "G", "E", "C", "X"],
         "user": [],
+        "type": "chord"
     },
     # Question 2
     {
-        "task": "Test Question",
+        "task": "Test Question 1",
         "directions": "Please Select the best answer.",
         "answer": "A",
         "user": [],
+        "type": "mult",
         "options": [
                     { "value": "A", "text": "Choice A" },
                     { "value": "B", "text": "Choice B" },
                     { "value": "C", "text": "Choice C" },
                     { "value": "D", "text": "Choice D" }
                     ]
+            
     },
     # Question 3
     {
-        "task": "Test Question",
+        "task": "Test Question 2",
         "directions": "Please Select the best answer.",
         "answer": "A",
         "user": [],
+        "type": "mult",
         "options": [
                     { "value": "A", "text": "Choice A" },
                     { "value": "B", "text": "Choice B" },
@@ -310,7 +314,8 @@ def quiz(id):
     id = int(id)
     return render_template('quiz_layout.html',
                             quiz_content = quiz_content[id],
-                            current_question = current_question)
+                            current_question = current_question,
+                            quiz_id = id)
 
 @app.route('/results/<id>')
 def results(id):
@@ -392,6 +397,15 @@ def next_question():
     global current_question 
 
     current_question += 1
+
+    #send back the array of sales, so the client can redisplay it
+    return jsonify(current_question = current_question)
+
+@app.route('/quiz/reset_question', methods=['GET', 'POST'])
+def reset_question():
+    global current_question 
+
+    current_question = 1
 
     print(current_question)
     #send back the array of sales, so the client can redisplay it
