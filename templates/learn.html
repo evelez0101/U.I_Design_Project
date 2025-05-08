@@ -8,7 +8,8 @@
 <script>
   let content = {{lesson_content|tojson}}
   let total = {{ lesson_content|length }}
-  let targetId = {{target_id | tojson}}
+  let current_lesson_id = {{current_lesson_id | tojson}}
+  let id = {{id | tojson}}
 </script>
 
 <script type="text/javascript" src="{{ url_for('static', filename = 'js/learn.js') }}"></script>

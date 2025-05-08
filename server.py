@@ -100,7 +100,7 @@ lesson_content = {
         },
         {
             "chord": "C Major",
-            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
+            "image": "https://richterguitar.com/wp-content/uploads/2024/03/c-major.png",
             "notes": ["X", "C", "E", "G", "C", "E"],
             "video": "video link",
             "audio": "file path",
@@ -112,7 +112,7 @@ lesson_content = {
      2: [
         {
             "chord": "A Major",
-            "image": "https://chordbank.com/cb4dg/artful_mae_1_750.png",
+            "image": "https://richterguitar.com/wp-content/uploads/2024/03/A-Major-Version-2.png",
             "notes": ["A", "E", "A", "C#", "E"],
             "video": "video link",
             "audio": "file path",
@@ -192,7 +192,7 @@ lesson_content = {
 
 quiz_content = {
 # Quiz 1 
-0:[ 
+2:[ 
     # Question 1
     {
         "task": "Play an C Major Chord",
@@ -301,13 +301,16 @@ def welcome():
 
 @app.route('/lesson_plan')
 def lessons():
-    return render_template('lessons.html', lessons=lesson_plan)  
+    print(lesson_plan)
+    return render_template('lessons.html', lessons = lesson_plan)  
 
 @app.route('/learn/<id>')
 def learn(id):
     idx = int(id)
 
-    return render_template('learn.html',lesson_content = lesson_content[idx], target_id = (current_lesson_id))  
+    return render_template('learn.html',lesson_content = lesson_content[idx], 
+                                        current_lesson_id = current_lesson_id,
+                                        id = id)  
 
 @app.route('/quiz/<id>')
 def quiz(id):
@@ -356,8 +359,13 @@ def mark_complete():
 
     json_data = request.get_json()   
 
-    idx = json_data["idx"] - 1
+    print(json_data)
+
+    idx = int(json_data["idx"])
+
     lesson_plan[idx]['completed'] = True
+
+    print(lesson_plan)
 
     return jsonify(current_question = current_question)
 

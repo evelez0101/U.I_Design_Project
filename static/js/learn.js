@@ -1,9 +1,7 @@
-let current  = targetId;
+let current  = current_lesson_id;
 
 function updateProgress() 
 {
-    console.log(current);
-
     const $steps = $('.progressbar li');
 
     $steps.each(function(i) 
@@ -44,15 +42,16 @@ $(document).ready(function()
     carousel.pause();
     let $items = $carouselEl.find('.carousel-item');
 
-   // Focus on Target
-    const $targetItem = $items.filter(`#${targetId}`);
+    
+    // Focus on Target
+    const $targetItem = $items.filter(`#${current_lesson_id}`);
 
     // 3) Compute its zero-based index among all items
     const targetIndex = $items.index($targetItem);
 
     // 4) Tell the Carousel to go there
     carousel.to(targetIndex);
-
+    
     // Defines buttons
     let $nextBtn = $('#next');
     let $prevBtn = $('#back');
@@ -79,7 +78,6 @@ $(document).ready(function()
 
     // Initialize value and button state
     updateControls();
-    mark_complete(current);
 
     $nextBtn.on('click', function() 
     {
@@ -87,13 +85,12 @@ $(document).ready(function()
         if (current < total) 
         {
             next_lesson();
-            mark_complete(current);
             carousel.next();
         }
         else
         {
             reset_lesson();
-            mark_complete(current);
+            mark_complete(id);
             window.location.href = "/lesson_plan";
         }
     });
@@ -111,7 +108,7 @@ $(document).ready(function()
     $carouselEl.on('slid.bs.carousel', updateControls).on('slide.bs.carousel', function() { $slideInput.blur(); });
 });
 
-function mark_complete(idx)
+function mark_complete()
 {
     let data = {"idx": idx};
 

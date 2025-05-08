@@ -165,6 +165,32 @@ function request_question(question_type)
   });
 }
 
+function mark_complete(idx)
+{
+    let data = {"idx": idx};
+
+    console.log(data)
+    
+    $.ajax({
+        type: "POST",
+        url: "/mark_complete",                
+        dataType :"json",
+        contentType: "application/json; charset=utf-8",
+        data : JSON.stringify(data),
+        success: function(result)
+        {
+            console.log("success mark_complete")
+        },
+        error: function(request, status, error)
+        {
+            console.log("Error mark complete");
+            console.log(request)
+            console.log(status)
+            console.log(error)
+        }
+    });
+}
+
 // Progress bar
 $(document).ready(function() 
 {
@@ -220,6 +246,7 @@ $(document).ready(function()
       else
       {
         reset_question();
+        mark_complete(quiz_id);
         window.location.href = `/results/${quiz_id}`;
       }
     });
