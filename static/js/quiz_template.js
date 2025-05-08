@@ -198,7 +198,7 @@ $(document).ready(function()
     const $steps = $('.progressbar li');
     const total  = $steps.length;
     let current  = current_question;
-    request_question(current_question);
+    request_question(content[current_question - 1]["type"]);
 
     function updateProgress() 
     {
