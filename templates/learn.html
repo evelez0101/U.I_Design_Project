@@ -302,44 +302,48 @@ aria-hidden="true"
 
 <!-- YouTube Modal -->
 <div
-  class="modal fade"
-  id="youtubeModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="youtubeModalLabel"
-  aria-hidden="true"
+class="modal fade"
+id="youtubeModal"
+tabindex="-1"
+role="dialog"
+aria-labelledby="youtubeModalLabel"
+aria-hidden="true"
 >
-  <div class="modal-dialog modal-lg" role="document">
-    
-    <div class="modal-content">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
 
-      <div class="modal-header">
-        <h5 class="modal-title" id="youtubeModalLabel">Lesson Video</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="modal-body p-0">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe
-            id="youtubeFrame"
-            class="embed-responsive-item"
-            src=""
-            allow="autoplay; encrypted-media"
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-
+    <div class="modal-header">
+      <h5 class="modal-title" id="youtubeModalLabel">Lesson Video</h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+
+    <div class="modal-body text-center">
+      <!-- Your static iframe embed -->
+      <iframe
+        width="500"
+        height="500"
+        src="https://www.youtube.com/embed/69-jsNK3FBs"
+        title="How To Play The C Chord On Guitar - Guvna Guitars"
+        frameborder="2"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+
   </div>
 </div>
+</div>
+
+
+
 
 <script>
     // Get the audio element
@@ -358,22 +362,6 @@ aria-hidden="true"
     $('#audioModal').on('hide.bs.modal', function () {
       audioEl.pause();
       audioEl.currentTime = 0;
-    });
-
-    $(document).ready(function()
-    {
-      // Replace VIDEO_ID with your YouTube video ID:
-      const youtubeSrc = "https://youtu.be/dQw4w9WgXcQ?si=-b9XEajo-RclUa2d?autoplay=1&rel=0";
-
-      // When the modal is shown, set the iframe src to start playback
-      $('#youtubeModal').on('shown.bs.modal', function () {
-      $('#youtubeFrame').attr('src', youtubeSrc);
-      });
-
-      // When the modal is hidden, remove the src so the video stops
-      $('#youtubeModal').on('hide.bs.modal', function () {
-      $('#youtubeFrame').attr('src', '');
-      });
     });
 </script>
 
