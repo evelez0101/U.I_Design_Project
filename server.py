@@ -203,31 +203,31 @@ quiz_content = {
     },
     # Question 2
     {
-        "task": "Test Question 1",
-        "directions": "Please Select the best answer.",
+        "task": "Question 2",
+        "directions": "What is the name of the vertical divider that sections that guitar and determines what note is played?",
         "answer": "A",
         "user": [],
         "type": "mult",
         "options": [
-                    { "value": "A", "text": "Choice A" },
-                    { "value": "B", "text": "Choice B" },
-                    { "value": "C", "text": "Choice C" },
-                    { "value": "D", "text": "Choice D" }
+                    { "value": "A", "text": "Fret Wires" },
+                    { "value": "B", "text": "The Nut" },
+                    { "value": "C", "text": "Half-steps" },
+                    { "value": "D", "text": "Fret Markers" }
                     ]
             
     },
     # Question 3
     {
-        "task": "Test Question 2",
-        "directions": "Please Select the best answer.",
-        "answer": "A",
+        "task": "Question 3",
+        "directions": "When reading a chord shape, what does an X mean?",
+        "answer": "B",
         "user": [],
         "type": "mult",
         "options": [
-                    { "value": "A", "text": "Choice A" },
-                    { "value": "B", "text": "Choice B" },
-                    { "value": "C", "text": "Choice C" },
-                    { "value": "D", "text": "Choice D" }
+                    { "value": "A", "text": "Play the string openly" },
+                    { "value": "B", "text": "Don't play the string" },
+                    { "value": "C", "text": "Play that string loudly" },
+                    { "value": "D", "text": "Play the string with your thumb" }
                     ]
     }],
 5:[ 
