@@ -103,7 +103,7 @@ function save_answer(answer, question_num)
     console.log("save called");
     console.log(answer)
     // Call to backend  
-    let data = [answer, question_num];
+    let data = [answer, question_num,quiz_id];
 
     $.ajax({
         type: "POST",
@@ -132,7 +132,7 @@ function request_question(question_type)
 {
   let endpoint = "";
 
-  console.log("Question type ")
+  console.log("Question type")
   console.log(question_type)
 
   switch(question_type)
@@ -144,7 +144,7 @@ function request_question(question_type)
       endpoint = "/multiple_choice";
       break;
     default:
-      endpoint = "/chord_quiz";
+      endpoint = "/multiple_choice";
   }
 
   console.log(endpoint)

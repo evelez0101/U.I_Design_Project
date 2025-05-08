@@ -102,7 +102,7 @@ lesson_content = {
             "chord": "C Major",
             "image": "https://richterguitar.com/wp-content/uploads/2024/03/c-major.png",
             "notes": ["X", "C", "E", "G", "C", "E"],
-            "video": "video link",
+            "video": "https://www.youtube.com/shorts/69-jsNK3FBs?feature=share",
             "audio": "file path",
             "type": "info",
             "order": 1,
@@ -344,14 +344,15 @@ def save_answer():
 
     answer = json_data[0]
     idx = json_data[1] - 1
+    id = int(json_data[2])
+
+    print(id)
     
     # Add client to list if they arent already there
-    quiz_content[0][idx]["user"] = answer
-
-    print(quiz_content[0][idx])
+    quiz_content[id][idx]["user"] = answer
 
     #send back the WHOLE array of sales, so the client can redisplay it
-    return jsonify(quiz_content = quiz_content[0][idx])
+    return jsonify(quiz_content = quiz_content[id][idx])
 
 @app.route('/mark_complete', methods=['GET', 'POST'])
 def mark_complete():
