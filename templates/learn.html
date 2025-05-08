@@ -75,20 +75,18 @@
                   <!-- Content for Lesson -->
                   <div class = "row mt-n2"> 
 
-                    <!-- Left Spacer -->
-                    <div class = "col-1"></div>
-
+    
                     <!-- Left Column -->
-                    <div class = "col-5">
+                    <div class = "col-6">
                       <img 
-                          class="w-75 d-block rounded" 
+                          class="img-fluid d-block rounded" 
                           style = "border: 2px dotted black; border-radius: 5px;"
                           src = " {{card["image"]}} "
                           alt = "chord">
                     </div>
                     
                     <!-- Right Column -->
-                    <div class = "col-5">
+                    <div class = "col-6">
                       
                       <!-- Text Portion -->
                       <div class = "row mt-2">
@@ -99,39 +97,7 @@
                 
                       </div>
                 
-                      <!-- Media Section -->
-                      <div class = "row mt-4">      
-                        <div class = "col d-flex justify-content-center">
-                            <button
-                                type= "button" 
-                                data-toggle="modal"
-                                data-target="#audioModal"
-                                class= "btn bg-base rounded-pill shadow"> 
-                                
-                                <div class = "gap-2">
-                                  <i class="bi bi-soundwave"></i>
-                                  <span class = "text-dark">Hear it!</span>
-                                </div>
-                
-                            </button>
-                            
-                            <button  type= "button" 
-                                id = "see" 
-                                data-toggle="modal"
-                                data-target="#youtubeModal"
-                                class= "btn bg-base rounded-pill shadow mx-4"> 
-                                <div class = "gap-2">
-                                  <i class="bi bi-play-btn-fill me-2" style="font-size: 1.1em;"></i>
-                                  <span class = "lr-2">See it!</span>
-                                </div>
-                            </button>
-                        </div>
-                      </div>
                     </div>
-                    
-                    <!-- Right Spacer -->
-                    <div class = "col-1"></div>
-
                   </div>
                 </div>
                 {% else %}
@@ -329,7 +295,7 @@ aria-hidden="true"
       <iframe
         width="500"
         height="500"
-        src="https://www.youtube.com/embed/69-jsNK3FBs"
+        src="{{lesson_content[current_lesson_id]["video"]}}"
         title="How To Play The C Chord On Guitar - Guvna Guitars"
         frameborder="2"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

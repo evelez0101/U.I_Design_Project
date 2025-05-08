@@ -1,316 +1,226 @@
-// Handles prev question logic
-function prev_question()
-{
-  $.ajax({
-      type: "POST",
-      url: "prev_question",                
-      dataType : "json",
-      contentType: "application/json; charset=utf-8",
-      data : " ",
-      success: function(result)
-      {
-          current_question = result["current_question"];
-          display_question();
-          request_question(content[current_question - 1]["type"]);
-      },
-      error: function(request, status, error)
-      {
-          console.log("Error");
-          console.log(request)
-          console.log(status)
-          console.log(error)
-      }
-  });
-}
 
-function reset_question()
-{
-  $.ajax({
-      type: "POST",
-      url: "reset_question",                
-      dataType : "json",
-      contentType: "application/json; charset=utf-8",
-      data : " ",
-      success: function(result)
-      {
-        console.log("sucessful reset");
-      },
-      error: function(request, status, error)
-      {
-          console.log("Error");
-          console.log(request)
-          console.log(status)
-          console.log(error)
-      }
-  });
-}
-
-
-// Handles next question logic
-function next_question()
-{
-    $.ajax({
-        type: "POST",
-        url: "next_question",                
-        dataType : "json",
-        contentType: "application/json; charset=utf-8",
-        data : " ",
-        success: function(result)
-        {
-            current_question = result["current_question"];
-            display_question();
-            request_question(content[current_question - 1]["type"]);
-        },
-        error: function(request, status, error)
-        {
-            console.log("Error");
-            console.log(request)
-            console.log(status)
-            console.log(error)
-        }
-    });
-}
-
-function display_question()
-{
- 
-  // build the HTML using a template‐literal
-  const questionHTML = $(`
-  <div class="row">
-    <div class="col d-flex justify-content-center">
-      <h3>
-        Question ${current_question}: ${content[current_question - 1].task}
-      </h3>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col d-flex justify-content-center">
-      <p>
-        ${content[current_question - 1].directions}
-      </p>
-    </div>
-  </div>`);
-  
-  console.log(questionHTML)
-  // append it to your target container
-  $('#question_text').empty();
-  $('#question_text').append(questionHTML);
-}
-
-// Handles saving answer
-function save_answer(answer, question_num)
-{
-    console.log("save called");
-    console.log(answer)
-    // Call to backend  
-    let data = [answer, question_num,quiz_id];
-
-    $.ajax({
-        type: "POST",
-        url: "save_answer",                
-        dataType : "json",
-        contentType: "application/json; charset=utf-8",
-        data : JSON.stringify(data),
-        success: function(result)
-        {
-            console.log("success save_answer")
-            console.log(result['quiz_content']);
-            content[current_question - 1] = result['quiz_content']
-        },
-        error: function(request, status, error)
-        {
-            console.log("Error");
-            console.log(request)
-            console.log(status)
-            console.log(error)
-        }
-    });
-}
-
-
-function request_question(question_type)
-{
-  let endpoint = "";
-
-  console.log("Question type")
-  console.log(question_type)
-
-  switch(question_type)
-  {
-    case "chord":
-      endpoint = "/chord_quiz";
-      break;
-    case "mult":
-      endpoint = "/multiple_choice";
-      break;
-    default:
-      endpoint = "/multiple_choice";
+  // Deep‐equals for arrays (works for 1D arrays)
+  function arraysEqual(a, b) {
+    return Array.isArray(a) &&
+           Array.isArray(b) &&
+           a.length === b.length &&
+           a.every((el, i) => el === b[i]);
   }
 
-  console.log(endpoint)
-  $.ajax({
-    url: endpoint,       // Flask route
-    method: "GET",
-    dataType: "html",      // expect HTML back
-    success: function(html) {
-      // inject the snippet into the container
-      $("#question").empty();
-      $("#question").append(html);
-      console.log(html)
-    },
-    error: function(xhr, status, err) {
-      console.error("AJAX error:", status, err);
-      $("#question").empty();
+  // Check the current answer against the key in `content`
+  function checkAnswers() {
+    const item       = content[current_question - 1];
+    const userAnswer = item.user;
+    const answer     = item.answer;
+
+    console.log('Comparing user →', userAnswer, '| answer →', answer);
+
+    if (item.type === "chord") {
+      return arraysEqual(userAnswer, answer);
     }
-  });
-}
+    return userAnswer === answer;
+  }
 
-function mark_complete(idx)
-{
-    let data = {"idx": idx};
 
-    console.log(data)
-    
+  // ---- AJAX / navigation helpers ----
+
+  function prev_question() {
     $.ajax({
-        type: "POST",
-        url: "/mark_complete",                
-        dataType :"json",
-        contentType: "application/json; charset=utf-8",
-        data : JSON.stringify(data),
-        success: function(result)
-        {
-            console.log("success mark_complete")
-        },
-        error: function(request, status, error)
-        {
-            console.log("Error mark complete");
-            console.log(request)
-            console.log(status)
-            console.log(error)
-        }
+      type: "POST",
+      url: "prev_question",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: " ",
+      success(result) {
+        current_question = result.current_question;
+        display_question();
+        request_question(content[current_question - 1].type);
+      },
+      error(req, status, err) {
+        console.error("prev_question error:", status, err);
+      }
     });
-}
+  }
 
-// Progress bar
-$(document).ready(function() 
-{
-  // Initialize progress bar 
+  function next_question() {
+    $.ajax({
+      type: "POST",
+      url: "next_question",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: " ",
+      success(result) {
+        current_question = result.current_question;
+        display_question();
+        request_question(content[current_question - 1].type);
+      },
+      error(req, status, err) {
+        console.error("next_question error:", status, err);
+      }
+    });
+  }
+
+  function reset_question() {
+    $.ajax({
+      type: "POST",
+      url: "reset_question",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: " ",
+      success() {
+        console.log("successful reset");
+      },
+      error(req, status, err) {
+        console.error("reset_question error:", status, err);
+      }
+    });
+  }
+
+  function save_answer(answer, question_num) {
+    const payload = [answer, question_num, quiz_id];
+    $.ajax({
+      type: "POST",
+      url: "save_answer",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(payload),
+      success(result) {
+        console.log("success save_answer", result);
+        content[current_question - 1] = result.quiz_content;
+      },
+      error(req, status, err) {
+        console.error("save_answer error:", status, err);
+      }
+    });
+  }
+
+  function request_question(question_type) {
+    let endpoint = (question_type === "chord")
+      ? "/chord_quiz"
+      : "/multiple_choice";
+
+    $.ajax({
+      url: endpoint,
+      method: "GET",
+      dataType: "html",
+      success(html) {
+        $("#question").empty().append(html);
+      },
+      error(xhr, status, err) {
+        console.error("request_question error:", status, err);
+        $("#question").empty();
+      }
+    });
+  }
+
+  function mark_complete(idx) {
+    $.ajax({
+      type: "POST",
+      url: "/mark_complete",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify({ idx }),
+      success() {
+        console.log("success mark_complete");
+      },
+      error(req, status, err) {
+        console.error("mark_complete error:", status, err);
+      }
+    });
+  }
+
+
+  // ---- DOM & progress handling ----
+
+  function display_question() {
+    const q = content[current_question - 1];
+    const html = $(`
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <h3>
+            Question ${current_question}: ${q.task}
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <p>${q.directions}</p>
+        </div>
+      </div>
+    `);
+    $("#question_text").empty().append(html);
+  }
+
+
+  $(function() {
+    // Cache progressbar steps
     const $steps = $('.progressbar li');
     const total  = $steps.length;
-    let current  = current_question;
-    request_question(content[current_question - 1]["type"]);
 
-    function updateProgress() 
-    {
-        $steps.each(function(i) 
-        {
-            if (i < current - 1) 
-            {
-                $(this).addClass('done').removeClass('active');
-            } 
-            else if (i === current - 1) 
-            {
-                $(this).addClass('active').removeClass('done');
-            } 
-            else 
-            {
-                $(this).removeClass('done active');
-            }
-        });
+    // Sets up progress bar width
+    let percentage = (100 / content.length);
+    $('.progressbar li').css('width', percentage + '%');
 
-      // Buttons
-      if (current === total) 
-      {
-        $('#next').text('Submit');
-      } 
-      else 
-      {
-        $('#next').text('Next');
-      }
+    // Initial load of the first question
+    request_question(content[current_question - 1].type);
 
-      $('#prev').prop('disabled', current === 1);
+    // Update the progressbar UI
+    function updateProgress() {
+      $steps.each(function(i) {
+        if (i < current_question - 1) {
+          $(this).addClass('done').removeClass('active');
+        } else if (i === current_question - 1) {
+          $(this).addClass('active').removeClass('done');
+        } else {
+          $(this).removeClass('done active');
+        }
+      });
+
+      $('#next').text(current_question === total ? 'Submit' : 'Next');
+      $('#prev').prop('disabled', current_question === 1);
     }
 
     updateProgress();
+    display_question();
 
-    // Present the next question
-    $(document).on("click", "#next", function()
-    {
-      if (current < total) 
-      {
-        $("#alert").empty();
-        current++;
+
+    // Delegate all clicks so handlers survive any DOM swaps:
+
+    // Next / Submit
+    $(document).on('click', '#next', function() {
+      if (current_question < total) {
+        $('#alert').empty();
+        current_question++;
         next_question();
         updateProgress();
-      }
-      else
-      {
+      } else {
         reset_question();
         mark_complete(quiz_id);
         window.location.href = `/results/${quiz_id}`;
       }
     });
 
-    // Present the prev question
-    $(document).on("click", "#prev", function()
-    {
-      if (current > 1) 
-      {
-        $("#alert").empty();
-        current--;
+    // Previous
+    $(document).on('click', '#prev', function() {
+      if (current_question > 1) {
+        $('#alert').empty();
+        current_question--;
         prev_question();
         updateProgress();
       }
     });
 
-    display_question();
-});
+    // Check Answers
+    $(document).on('click', '#getAnswersBtn', function() {
+      const raw       = checkAnswers();
+      console.log('checkAnswers() returned:', raw, typeof raw);
 
+      const isCorrect = raw === true;
+      const cls       = isCorrect ? 'alert-success' : 'alert-secondary';
+      const msg       = isCorrect ? 'That is Correct!'   : 'That is Wrong!';
 
-// Defines behavoir for check answer button
-$(document).ready(function()
-{
-    $('#getAnswersBtn').on('click', function()
-    {
-      
-      if (checkAnswers())
-      {
-        alert = $(`<div class="alert alert-success" role="alert">
-        That is Correct!
-          </div>`);
-      }
-      else
-      {
-        alert = $(`<div class="alert alert-secondary" role="alert">
-        That is Wrong!
-          </div>`);
-      }
-
-      $("#alert").empty();
-      $("#alert").append(alert);
+      $('#alert')
+        .empty()
+        .append(`<div class="alert ${cls}" role="alert">${msg}</div>`);
     });
-});
-
-function checkAnswers()
-{
-  let userAnswer = content[current_question - 1]['user']
-  let answer = content[current_question - 1]['answer']
-
-  console.log(userAnswer);
-  console.log(answer);
-
-  if (Array.isArray(answer)) 
-  {
-    return (arraysEqual(userAnswer,answer));
-  }
- 
-  return(userAnswer === answer);
-}
-
-function arraysEqual(a, b) 
-{
-  return ( Array.isArray(a) && Array.isArray(b) &&      // both must be arrays
-            a.length === b.length &&                      // same length
-            a.every((el, i) => el === b[i])               // each element equal
-          );
-}
+  });

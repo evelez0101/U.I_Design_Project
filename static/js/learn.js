@@ -108,7 +108,7 @@ $(document).ready(function()
     $carouselEl.on('slid.bs.carousel', updateControls).on('slide.bs.carousel', function() { $slideInput.blur(); });
 });
 
-function mark_complete()
+function mark_complete(idx)
 {
     let data = {"idx": idx};
 

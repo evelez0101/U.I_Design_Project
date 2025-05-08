@@ -21,9 +21,10 @@
     <div class = "col">
       <!-- Progress Bar with steps -->
       <ul class="progressbar">
-          <li> Question 1 </li>
-          <li> Question 2 </li>
-          <li> Question 3 </li> 
+      {% for idx in quiz_content%}
+        <li> Question {{loop.index}} </li>
+      {% endfor %}
+
       </ul>
 
     </div>
