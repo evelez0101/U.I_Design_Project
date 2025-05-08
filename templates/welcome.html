@@ -9,35 +9,149 @@
     background: url('{{url_for('static', filename='assets/images/guitar.svg')}}') center/contain no-repeat;
     min-height: 350px;
     }
+
+    /* in your stylesheet */
+    .glass {
+      background-color: rgba(255, 255, 255, 0.2);   /* translucent white */
+      backdrop-filter: blur(8px);                   /* blur behind */
+      -webkit-backdrop-filter: blur(8px);           /* Safari support */
+      border: 2px solid rgba(255, 255, 255, 0.3);    /* subtle border */
+      border-radius: 0.5rem;                        /* match Bootstrap .rounded */
+    }
+
   </style>
 
   <!-- HERO -->
-  <section class="container my-5">
+  <div class="container my-5">
     
-    <div class="row align-items-center">
-      
-        <!-- Left text column -->
-      <div class="col-6">
+    <!-- Title  -->
+    <div class="row">
+      <div class="col-2"></div>
+        <div class = "col-8">
+          <h1 class="display-4 font-weight-light text-center" style = "color:black;">
+              <strong>Learn to Play your First Guitar Chords in Just 10 Minutes!</strong>
+          </h1>
+        </div>
+      <div class="col-2"></div>
+    </div>
 
-        <h1 class="display-4 font-weight-light" style = "color:black;">
-            <strong>Play your first chords<br>in Just 10 Minutes!</strong>
-        </h1>
-
+    <!-- Description -->
+    <div class="row mt-4">
+      <div class="col-2"></div>
+      <div class = "col-8">
         <p class="lead">
             Learn the must-know guitar chords fast with our fun, high-energy guide! 
             No boring lessons — just grab your guitar and start strumming in minutes. 
             Your music journey starts now!
         </p>
-        
-        <a href="/lesson_plan" class="btn btn-demo btn-lg mr-2">Get Started</a>
-
       </div>
-
-      <!-- Right hex‑background column -->
-      <div class="col-6">
-        <div class="hex-bg"></div>
-      </div>
+      <div class="col-2"></div>
     </div>
-  </section>
+
+    <!-- Action Button -->
+    <div class="row">
+      <div class="col-2"></div>
+      <div class = "col-8 d-flex justify-content-center align-items-center">
+        <a href="/lesson_plan" class="btn btn-demo btn-lg mr-2">Get Started</a>
+      </div>
+      <div class="col-2"></div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="container my-2">
+    <div class = "row mt-4">
+      <div class = "col-4">
+          <!-- Frosted Div -->
+          <div class="glass p-4">
+
+              <!-- Title / Tage Line -->
+              <div class = "row">
+                <div class = "col d-flex justify-content-center align-items-center">
+                  <h4> 6 Foundational Chords </h4>
+                </div>
+              </div>
+  
+              <div class="row mt-2 d-flex justify-content-center align-items-center">
+                <div class="col-auto">
+                  <img 
+                    src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg" 
+                    class="img-fluid rounded" 
+                    width="200" 
+                    height="100" 
+                    alt="Placeholder landscape" />
+                </div>
+              </div>
+  
+              <div class = "row mt-2">
+                <div class = "col d-flex justify-content-center align-items-center">
+                  <p> Sample description</p>
+                </div>
+              </div>
+
+          </div>
+      </div>
+
+      <div class = "col-4">
+          <div class="glass p-4 mx-auto">
+            <!-- Title / Tage Line -->
+            <div class = "row">
+              <div class = "col d-flex justify-content-center align-items-center">
+                <h4> Interactive Assements </h4>
+              </div>
+            </div>
+
+            <div class="row mt-2 d-flex justify-content-center align-items-center">
+              <div class="col-auto">
+                <img 
+                  src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg" 
+                  class="img-fluid rounded" 
+                  width="200" 
+                  alt="Placeholder landscape" />
+              </div>
+            </div>
+
+            <div class = "row mt-2">
+              <div class = "col d-flex justify-content-center align-items-center">
+                <p> Sample description</p>
+              </div>
+            </div>
+          
+          </div>
+
+      </div>
+
+      <div class = "col-4">
+        <div class="glass p-4">
+          <!-- Title / Tage Line -->
+          <div class = "row">
+            <div class = "col d-flex justify-content-center align-items-center">
+              <h4> Guided Lesson Plan </h4>
+            </div>
+          </div>
+
+          <div class="row mt-2 d-flex justify-content-center align-items-center">
+            <div class="col-auto">
+              <img 
+                src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg" 
+                class="img-fluid rounded" 
+                width="200" 
+                alt="Placeholder landscape" />
+            </div>
+          </div>
+
+          <div class = "row mt-2">
+            <div class = "col d-flex justify-content-center align-items-center">
+              <p> Sample description</p>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+        
+    </div>
+
+  </div>
+
 
 {% endblock %}

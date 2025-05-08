@@ -1,0 +1,143 @@
+/* 1) Full-width table with fixed layout */
+.fretboard {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin: 2rem 0;
+  }
+  /* 2) Crisp light-grey grid lines */
+  .fretboard th {
+    border: 0;
+  }
+
+  .fretboard td {
+    border: 2px dotted #ccc;
+    padding: 0;
+    height: 40px; /* Controls height of fretboard */
+    position: relative;
+  }
+
+
+   /* 3) Thicker “nut” at fret 0→1 boundary */
+   .fretboard td:nth-child(2),
+   .fretboard td:nth-child(3) {
+    border-left: none;
+    border-right: none;
+    border-bottom: none !important;
+    border-top: none !important;
+  }
+
+    
+  /* 3) Thicker “nut” at fret 0→1 boundary */
+  .fretboard td:nth-child(4) {
+    border-left: 4px solid #444;
+    border-right: none;
+    border-bottom: none !important;
+    border-top: none !important;
+  }
+
+  /* 5) Hide actual radio inputs */
+  .fret-radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  /* 6) Label style: black circle on top of grid, white text */
+  .fret-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #d3d3d3;
+    box-shadow: inset 0 0 0 2px #d3d3d3;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: normal;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  /* 7) When checked, keep same look (no outline) */
+  .fret-radio:checked + .fret-label {
+    box-shadow: inset 0 0 0 2px var(--color-accent);
+    background: var(--color-accent);
+    color: #fff;
+    font-weight: bold;
+  }
+  /* 8) String labels at left/right */
+  .string-label {
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+    padding-right: 0.5rem;
+  }
+  .string-label.right {
+    text-align: left;
+    padding-left: 0.5rem;
+  }
+  /* 9) Fret numbers in header */
+  thead th {
+    font-size: 0.8rem;
+    color: #444;
+    text-align: center;
+    height: 30px;
+    vertical-align: bottom;
+    padding-bottom: 4px;
+  }
+
+  /* kill every border on the string-name column (first cell in each row) */
+    .fretboard tbody td:first-child {
+        border: none !important;
+    }
+    /* if you have a <th> above it (the upper-left corner), kill that too */
+    .fretboard thead th:first-child {
+        border: none !important;
+    }
+  
+  
+  /* ─────────────────────────────────────────────────────────── */
+  /* NEW: draw a string-line through the center of each row below */
+  .fretboard tbody tr {
+    position: relative;
+  }
+ 
+
+  .fretboard tbody tr::before
+   {
+    display: none;
+  }
+  
+  /* no more horizontal borders on the cells themselves */
+    .fretboard td {
+        border-top: none;
+        border-bottom: none;
+    }
+    
+    /* draw the string in each fret cell, starting at column 2 */
+    .fretboard tbody td:nth-child(n+4)::before {
+        content: "";
+        position: absolute;
+        top: 50%;        /* center vertically */
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #888;
+        z-index: 0;      /* below your fret-labels */
+    }
+    
+    /* lift your buttons above these lines */
+    .fret-label {
+        position: relative;
+        z-index: 1;
+    }
+  
+  /* lift labels above the string line */
+  .fret-label,
+  .fret-radio + .fret-label {
+    position: relative;
+    z-index: 1;
+  }
+  

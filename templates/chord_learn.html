@@ -1,0 +1,24 @@
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chord_learn.css') }}" >
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/chord_learn.js') }}"></script>
+<!-- Fret Board -->
+<div class="row">
+  <div class = "col d-flex justify-content-center align-items-center">
+    <table class="fretboard">
+      <thead>
+        <tr>
+          <th>String</th>
+          <th>Closed</th>
+          <th>Open</th>
+          <th>1</th><th>2</th>
+          <th>3</th><th>4</th>
+          <th>5</th><th>6</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="fret-body"></tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

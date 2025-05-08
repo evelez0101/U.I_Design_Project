@@ -96,21 +96,28 @@ lesson_content = {
         # Lesson Data
     1: [
         {
-            "lessons": ["C Major"],
+            "lessons": ["C Major","C Major Tab"],
         },
         {
             "chord": "C Major",
             "image": "https://richterguitar.com/wp-content/uploads/2024/03/c-major.png",
-            "notes": ["X", "C", "E", "G", "C", "E"],
+            "notes": ["E", "C", "G", "E", "C", "X"],
             "video": "https://www.youtube.com/embed/69-jsNK3FBs?si=BK_0kFcoWjRYQN_X",
             "audio": "file path",
             "type": "info",
             "order": 1,
             "lesson_id": 1
+        },
+        {
+            "chord": "C Major Tab",
+            "notes": ["E", "C", "G", "E", "C", "X"],
+            "type": "chord",
+            "order": 2,
+            "lesson_id": 2
         }],
     3: [
         {
-            "lessons": ["A Major"]
+            "lessons": ["A Major", "A Major Tab"]
         },
         {
             "chord": "A Major",
@@ -121,11 +128,18 @@ lesson_content = {
             "type": "info",
             "order": 1,
             "lesson_id": 3
+        },
+        {
+            "chord": "A Major Tab",
+            "notes": ["E", "C#", "A", "E", "A", "X"],
+            "type": "chord",
+            "order": 2,
+            "lesson_id": 2
         }
     ],
     4: [
         {
-            "lessons": ["G Major"]
+            "lessons": ["G Major","G Major Tab"]
         },
         {
             "chord": "G Major",
@@ -136,11 +150,18 @@ lesson_content = {
             "type": "info",
             "order": 1,
             "lesson_id": 4
+        },
+        {
+            "chord": "G Major Tab",
+            "notes": ["G", "B", "G", "D", "B", "G"],
+            "type": "chord",
+            "order": 2,
+            "lesson_id": 2
         }
     ],
     6: [
         {
-            "lessons": ["E Major"]
+            "lessons": ["E Major","E Major Tab"]
         },
         {
             "chord": "E Major",
@@ -151,11 +172,18 @@ lesson_content = {
             "type": "info",
             "order": 1,
             "lesson_id": 6
+        },
+        {
+            "chord": "E Major Tab",
+            "notes": ["E", "B", "E", "G#", "B", "E"],
+            "type": "chord",
+            "order": 2,
+            "lesson_id": 2
         }
     ],
     7: [
         {
-            "lessons": ["D Major"]
+            "lessons": ["D Major", "D Major Tab"]
         },
         {
             "chord": "D Major",
@@ -166,6 +194,13 @@ lesson_content = {
             "type": "info",
             "order": 1,
             "lesson_id": 7
+        },
+        {
+            "chord": "D Major Tab",
+            "notes": ["X", "X", "D", "A", "D", "F#"],
+            "type": "chord",
+            "order": 2,
+            "lesson_id": 2
         }
     ],
 }

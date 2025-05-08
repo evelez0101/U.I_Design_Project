@@ -124,17 +124,14 @@ $(document).ready(function(){
                 <div class="col-1"></div>
                 
                 <!-- Completion Status -->
-                <div class = "col-2 collapse-content d-flex justify-content-around">
-                    <p class = "me-2">{{"Completed" if lessons[idx]["completed"] else "Not Yet Completed"}}</p>
-                    
+                <div class = "col-2">
                     {% if lessons[idx]["completed"] %}
-                        <i class="bi bi-check-lg" style="font-size: 1.1em;"></i>
-                    {% else %}
-                        <i class="bi bi-dash-lg" style="font-size: 1.1em;"></i>
+                    <div class = "d-flex justify-content-around">
+                        <p class = "me-1"> Completed </p>
+                        <i class="bi bi-check-lg" style="font-size: 1.2em; color:var(--color-accent)"></i>
+                    </div>
                     {% endif %}
                 </div>
-
-                <div class = "col-1"></div>
             </div>
 
             <!-- Exapnded Region  -->
