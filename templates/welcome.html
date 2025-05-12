@@ -10,6 +10,7 @@
     min-height: 350px;
     }
 
+
     /* in your stylesheet */
     .glass {
       background-color: rgba(255, 255, 255, 0.2);   /* translucent white */
@@ -27,7 +28,7 @@
     <!-- Title  -->
     <div class="row">
       <div class="col-2"></div>
-        <div class = "col-8">
+        <div class = "col-8 glass">
           <h1 class="display-4 font-weight-light text-center" style = "color:black;">
               <strong>Learn to Play your First Guitar Chords in Just 10 Minutes!</strong>
           </h1>
@@ -106,7 +107,6 @@
                 <img 
                   src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg" 
                   class="img-fluid rounded" 
-                  width="200" 
                   alt="Placeholder landscape" />
               </div>
             </div>
@@ -133,10 +133,9 @@
           <div class="row mt-2 d-flex justify-content-center align-items-center">
             <div class="col-auto">
               <img 
-                src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg" 
+                src="{{ url_for('static', filename='assets/images/lesson_plan.png') }}" 
                 class="img-fluid rounded" 
-                width="200" 
-                alt="Placeholder landscape" />
+                alt="Placeholder landscape"/>
             </div>
           </div>
 

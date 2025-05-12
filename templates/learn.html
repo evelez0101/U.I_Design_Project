@@ -22,7 +22,7 @@
   <div class = "row">
     <div class = "col">
       <!-- Progress Bar with steps -->
-      <ul class="progressbar">
+      <ul class="progressbar p-2 glass">
         {% for lesson in lesson_content[0]["lessons"] %}
           <li> {{lesson}} </li>
         {% endfor %}
@@ -40,8 +40,8 @@
           <!-- Lesson Content-->
           {% for card in lesson_content[1:] %}
           <div class="carousel-item {% if loop.first %} active {% endif %}" id = "{{card.lesson_id}}">
-            <div class="card rounded"
-                  style = "border: 2px solid var(--color-primary)">
+            <div class="card glass"
+                  style = "height: 500px;">
               <div class="card-body">
                 
                 {% if card['type'] == 'chord' %}

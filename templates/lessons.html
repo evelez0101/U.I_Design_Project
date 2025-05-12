@@ -6,39 +6,115 @@
 </script>
 
 <style>
-    .card-collapsible {
-      box-sizing: border-box;            /* include border in height */
-      max-height: 80px;                  /* collapsed height */
-      overflow: hidden;
-      border: 2px solid lightslategray;            /* normal border */
-      border-radius: 12px;            /* match Bootstrap card */
-      transition:
-        max-height 1s ease,
-        border-width 0.4s ease,
-        border-color 0.2s ease;
+/* 1) Keyframes to slide the gradient */
+@keyframes steel-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 2) Animated background using your #468faf plus lighter/darker tints */
+body {
+  background: linear-gradient(
+    90deg,
+    #468faf 0%,
+    #6baedc 50%,   /* lighter tint of #468faf */
+    #2a628f 100%   /* darker tint of #468faf */
+  );
+  background-size: 300% 300%;  
+  animation: steel-shift 10s ease infinite;
+}
+
+
+.glass {
+      background:  rgba(255, 255, 255, 0.6) ;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 1rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
 
-    .card-collapsible:hover {
-      max-height: 200px;                 /* expanded height */
-      border-width: 2px;                 /* thicker border */
-      border-color: var(--color-accent);             /* highlight color */
-    }
+/* 1) Define the pulsing‐glow animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 4px var(--color-accent);
+  }
+  50% {
+    box-shadow: 0 0 16px var(--color-primary);
+  }
+}
 
-    .collapse-content {
-      opacity: 0;                        /* hidden until hover */
-      transition: opacity 0.4s ease 0.2s;
-    }
-    .card-collapsible:hover .collapse-content {
-      opacity: 1;
-    }
+/* 2) Base state */
+.card-collapsible {
+  box-sizing: border-box;            /* include border in height */
+  max-height: 80px;                  /* collapsed height */
+  overflow: hidden;
+  border: 2px solid white;  /* normal border */
+  border-radius: 12px;               /* match Bootstrap card */
+  transition:
+    max-height 1s ease,
+    border-width 0.4s ease,
+    border-color 0.2s ease,
+    box-shadow 0.4s ease;            /* allow smooth shadow transition */
+}
+
+/* 3) Hover state: expand + pulsing glow */
+.card-collapsible:hover {
+  max-height: 200px;                 /* expanded height */
+  border-width: 4px;                 /* thicker border */
+  border-color: var(--color-primary);      /* keep same color (or swap out) */
+  animation: pulse-glow 1s ease-in-out infinite;
+}
+
+.collapse-content {
+    opacity: 0;                        /* hidden until hover */
+    transition: opacity 0.4s ease 0.2s;
+}
+.card-collapsible:hover .collapse-content {
+    opacity: 1;
+}
 </style>
 
 <script>
-$(document).ready(function() 
-{
-    // focus as soon as the page loads
-    $('.card').focus();
+$(document).ready(function() {
+  function highlightFirstIncompleteCard() {
+    // grab all your cards
+    var $cards = $('div.card.task');
+    console.log('Found cards:', $cards.length);
+
+    // inspect each one’s data-completed value
+    $cards.each(function(i, el) {
+      console.log(i, $(el).attr('data-completed'));
+    });
+
+    // filter for “false” (case-insensitive) and pick the first
+    var $first = $cards.filter(function() {
+      // use attr() + toLowerCase to catch "False", "false", etc.
+      return String($(this).attr('data-completed')).toLowerCase() === 'false';
+    }).first();
+
+    if (!$first.length) {
+      console.warn('No incomplete cards found!');
+      return;
+    }
+
+    // highlight it
+    $first.css({
+        'background': 'rgba(0, 0, 0, 0.1)',
+        'color' : 'white'
+    });
+
+    // fire any hover handlers
+    $first.trigger('mouseover');
+  }
+
+  highlightFirstIncompleteCard();
 });
+
 
 $(document).ready(function(){
     $('.btn').on('click', function()
@@ -68,16 +144,16 @@ $(document).ready(function(){
         <div class = "col-4">
             <!-- Rounded rectangle -->
             <div 
-            class = "d-flex justify-content-center align-items-center bg-base rounded-pill"
+            class = "d-flex glass justify-content-center align-items-center bg-base rounded-pill"
             >
-                <h1>Guitar</h1>
+                <h1>Your</h1>
             </div>
         </div>
 
         <div class = "col-4">
             <!-- Rounded rectangle -->
             <div 
-            class = "d-flex justify-content-center align-items-center bg-base rounded-pill"
+            class = "d-flex glass justify-content-center align-items-center bg-base rounded-pill"
             >
                 <h1>Lesson</h1>
             </div>
@@ -86,7 +162,7 @@ $(document).ready(function(){
         <div class = "col-4">
             <!-- Rounded rectangle -->
             <div 
-            class = "d-flex justify-content-center align-items-center bg-base rounded-pill"
+            class = "d-flex glass justify-content-center align-items-center bg-base rounded-pill"
             >
                 <h1>Plan</h1>
             </div>
@@ -100,12 +176,19 @@ $(document).ready(function(){
         {% if lessons %}
         {% for idx in lessons %}
         <!-- Collapsable Card -->
-        <div class="card card-collapsible mb-2">
+        <div class = "card glass card-collapsible mb-2 task" 
+             data-completed = "{{ lessons[idx]["completed"] }}" >
             <div class = "row d-flex align-items-center mt-2">
                 
                 <!-- Visible Content-->
                 <div class = "col-4">
-                    <h4 class="card-title ml-2">Lesson {{idx}} : {{lessons[idx]["title"]}}</h4>
+                    {% if lessons[idx]["type"] == "quiz" %}
+                        <h4 class="card-title ml-2">
+                            {{lessons[idx]["title"]}} 
+                        </h4>
+                    {% else %}
+                        <h4 class="card-title ml-2">Lesson {{idx}} : {{lessons[idx]["title"]}}</h4>
+                    {% endif %}
                 </div>
 
                 <!-- Fading in Content -->
@@ -115,6 +198,7 @@ $(document).ready(function(){
                     <button 
                         type= "button" 
                         id = {{idx}} 
+                        style = "border: 2px solid white"
                         class= "btn bg-base rounded-pill w-75 h-20"> 
                             <strong>Start Now</strong>
                     </button>
@@ -140,7 +224,7 @@ $(document).ready(function(){
                 <!-- Text Description -->
                 <div class = "col-4">
                     <p class="card-text ml-2">
-                    This Lesson will cover {{lessons[idx]["description"]}}.
+                    This lesson will cover {{lessons[idx]["description"]}}.
                     </p>
                 </div>
             </div>

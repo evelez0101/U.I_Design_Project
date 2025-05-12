@@ -19,7 +19,7 @@ lesson_plan = {
         "lesson_id": 2
     },
     2 : {
-        "title": "Quiz 1",
+        "title": "Assessment 1",
         "description": "tests comprehension of Getting Started and C Major", 
         "completed": False,
         "type": "quiz",
@@ -40,7 +40,7 @@ lesson_plan = {
         "lesson_id": 5
     },
     5: {
-        "title": "Quiz 2",
+        "title": "Assessment 2",
         "description": "tests comprehension of A Major and G Major", 
         "completed": False,
         "type": "quiz",
@@ -61,7 +61,7 @@ lesson_plan = {
         "lesson_id": 7
     },
     8: {
-        "title": "Quiz 2",
+        "title": "Assessment 3",
         "description": "tests comprehension of E Major and D Major", 
         "completed": False,
         "type": "quiz",

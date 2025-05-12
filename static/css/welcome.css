@@ -1,5 +1,18 @@
+@keyframes mint-shift {
+    0%,100%   { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
+  }
+  
 body {
-    background-color: var(--color-primary);
+    background: linear-gradient(
+      90deg,
+      #468faf,
+      #52b788,
+      #74c69d
+    );
+    background-size: 300% 300%;
+    animation: mint-shift 20s ease infinite;
+
     color: #444a56;
 }
 
