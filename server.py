@@ -267,7 +267,7 @@ quiz_content = {
     {
         "task": "Play an E Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
-        "answer": ["E", "B", "E", "G#", "B", "E"],
+        "answer": ["E", "B", "G#", "E", "B", "E"],
         "type": "chord",
         "user": [],
     },
@@ -275,7 +275,7 @@ quiz_content = {
     {
         "task": "Play an D Major Chord",
         "directions": "Please Select which notes to play and which notes to play.",
-        "answer": ["X", "X", "D", "A", "D", "F#"],
+        "answer": ["F#", "D", "A", "D", "X", "X"],
         "type": "chord",
         "user": [],
     }]
