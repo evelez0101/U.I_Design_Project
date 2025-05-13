@@ -80,7 +80,14 @@ body {
 </style>
 
 <script>
+    
+
+
 $(document).ready(function() {
+    window.onload = function() 
+    {
+        window.scrollTo(0, 0);
+    };
   function highlightFirstIncompleteCard() {
     // grab all your cards
     var $cards = $('div.card.task');
