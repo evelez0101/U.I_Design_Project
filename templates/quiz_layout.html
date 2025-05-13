@@ -17,29 +17,30 @@
 
 <!-- Progress Tracker -->
 <div class = "container mt-2">
-  <div class = "row mt-n4">
+  
+   <!-- Progress Tracker -->
+   <div class = "row mb-n2">
     <div class = "col">
       <!-- Progress Bar with steps -->
-      <ul class="progressbar">
-      {% for idx in quiz_content%}
-        <li> Question {{loop.index}} </li>
-      {% endfor %}
-
+      <ul class="progressbar p-2 glass">
+        {% for idx in quiz_content%}
+          <li> Question {{loop.index}} </li>
+        {% endfor %}
       </ul>
-
     </div>
   </div>
 
   <!-- Question Begins Here -->
-  <div class = "glass"
+  <div class = "conatiner glass"
         style = "height: 500px;">
-  <div id = "question_text"></div>
+  
+        <div id = "question_text"></div>
 
   <!-- Quiz Content Starts Here -->
   <div class = "row mt-2">
-    <div class = "col-2"></div>
+    <div class = "col-1"></div>
 
-    <div class = "col-8">
+    <div class = "col-10">
       <div
       class="d-flex align-items-center"
       style="height: 300px;"
@@ -48,19 +49,23 @@
       </div>
     </div>
 
-    <div class = "col-2"></div>
+    <div class = "col-1"></div>
   </div>
 
+  <!-- Question Grading -->
+  <div class = "row mt-4">
+    <div class = "col-1"></div>
+
+    <div class = "col-10 d-flex justify-content-center align-items-center">
+      <div class = "col" id = "alert"></div>
+    </div>
+
+    <div class = "col-1"></div>
+  </div>
   </div>
 
   
   <!-- Quiz U.I Picks Up Here Again -->
-
-  <!-- Question Grading -->
-  </div class = "row">
-    <div class = "col" id = "alert"></div>
-  </div>
-
 
   <!-- Bottom Buttons -->
   <div class = "row mt-5 mb-2">
@@ -75,14 +80,16 @@
     </div>
     <div class = "col-6">
       <div class = "col d-flex justify-content-center align-items-center">
-        <button id="getAnswersBtn" class="btn btn-primary"> Check Answer </button>
+        <button id="getAnswersBtn" 
+          class="btn bg-accent"
+          style = "color:white; border: 1px solid white"> Check Answer </button>
       </div>
     </div>
     <div class = "col-1">
         <button 
             type= "button" 
             id = "next" 
-            class= "btn bg-accent rounded-2"
+            class= "btn btn-lg bg-base rounded-2"
             style = "color: white;"
             > 
             Next

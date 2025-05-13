@@ -135,9 +135,9 @@
   function display_question() {
     const q = content[current_question - 1];
     const html = $(`
-      <div class="row">
+      <div class="row mt-4">
         <div class="col d-flex justify-content-center">
-          <h3>
+          <h3 class = "poppins">
             Question ${current_question}: ${q.task}
           </h3>
         </div>
@@ -212,12 +212,20 @@
 
     // Check Answers
     $(document).on('click', '#getAnswersBtn', function() {
+
+      console.log(content[current_question - 1]);
+
       const raw       = checkAnswers();
       console.log('checkAnswers() returned:', raw, typeof raw);
 
       const isCorrect = raw === true;
-      const cls       = isCorrect ? 'alert-success' : 'alert-secondary';
-      const msg       = isCorrect ? 'That is Correct!'   : 'That is Wrong!';
+      const cls       = 'd-flex justify-content-center';
+      const msg       = isCorrect ? '<h4 class = "poppins"> That is Correct! </h4>'  
+                                  : (`<div class = "gap-2">
+                                    <h4 class = "poppins"> That is Wrong!  
+                                      <a href="/learn/${content[current_question - 1]["lesson_id"]}" class  ="link-secondary"> Hint Here </a> 
+                                    </h4>
+                                    </div>`) ;
 
       $('#alert')
         .empty()

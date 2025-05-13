@@ -4,12 +4,11 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}" >
   
   <style>
-   /* replace this with your actual hex‑background SVG or CSS shapes */
+   /* replace this with your actual hex-background SVG or CSS shapes */
    .hex-bg {
     background: url('{{url_for('static', filename='assets/images/guitar.svg')}}') center/contain no-repeat;
     min-height: 350px;
     }
-
 
     /* in your stylesheet */
     .glass {
@@ -18,6 +17,15 @@
       -webkit-backdrop-filter: blur(8px);           /* Safari support */
       border: 2px solid rgba(255, 255, 255, 0.3);    /* subtle border */
       border-radius: 0.5rem;                        /* match Bootstrap .rounded */
+    }
+
+    /* equal-size utility for all images */
+    .equal-size {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto;
     }
 
   </style>
@@ -29,8 +37,8 @@
     <div class="row">
       <div class="col-2"></div>
         <div class = "col-8 glass">
-          <h1 class="display-4 font-weight-light text-center" style = "color:black;">
-              <strong>Learn to Play your First Guitar Chords in Just 10 Minutes!</strong>
+          <h1 class="display-4 font-weight-light text-center poppins" style = "color:black;">
+              <strong>Learn to Play 5 Guitar Chords in Just 10 Minutes!</strong>
           </h1>
         </div>
       <div class="col-2"></div>
@@ -40,7 +48,7 @@
     <div class="row mt-4">
       <div class="col-2"></div>
       <div class = "col-8">
-        <p class="lead">
+        <p class="lead" style = "color:black;">
             Learn the must-know guitar chords fast with our fun, high-energy guide! 
             No boring lessons — just grab your guitar and start strumming in minutes. 
             Your music journey starts now!
@@ -53,7 +61,7 @@
     <div class="row">
       <div class="col-2"></div>
       <div class = "col-8 d-flex justify-content-center align-items-center">
-        <a href="/lesson_plan" class="btn btn-demo btn-lg mr-2">Get Started</a>
+        <a href="/lesson_plan" class="btn btn-demo rounded-pill btn-lg mr-2">Get Started</a>
       </div>
       <div class="col-2"></div>
     </div>
@@ -64,69 +72,53 @@
     <div class = "row mt-4">
       <div class = "col-4">
           <!-- Frosted Div -->
-          <div class="glass p-4">
+          <div class="glass p-4" style = "height: 300px;">
 
-              <!-- Title / Tage Line -->
+              <!-- Title / Tag Line -->
               <div class = "row">
                 <div class = "col d-flex justify-content-center align-items-center">
-                  <h4> 6 Foundational Chords </h4>
+                  <h4 class = "poppins">5 Foundational Chords</h4>
                 </div>
               </div>
   
               <div class="row mt-2 d-flex justify-content-center align-items-center">
                 <div class="col-auto">
                   <img 
-                    src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg" 
-                    class="img-fluid rounded" 
-                    width="200" 
-                    height="100" 
-                    alt="Placeholder landscape" />
+                    src="{{ url_for('static', filename='assets/images/chord.png') }}" 
+                    class="equal-size rounded" 
+                    alt="5 Foundational Chords" />
                 </div>
               </div>
-  
-              <div class = "row mt-2">
-                <div class = "col d-flex justify-content-center align-items-center">
-                  <p> Sample description</p>
-                </div>
-              </div>
-
           </div>
       </div>
 
       <div class = "col-4">
-          <div class="glass p-4 mx-auto">
-            <!-- Title / Tage Line -->
+          <div class="glass p-4 mx-auto" style = "height: 300px;" >
+            <!-- Title / Tag Line -->
             <div class = "row">
               <div class = "col d-flex justify-content-center align-items-center">
-                <h4> Interactive Assements </h4>
+                <h4 class = "poppins">Interactive Learning</h4>
               </div>
             </div>
 
             <div class="row mt-2 d-flex justify-content-center align-items-center">
               <div class="col-auto">
                 <img 
-                  src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg" 
-                  class="img-fluid rounded" 
-                  alt="Placeholder landscape" />
+                  src="{{ url_for('static', filename='assets/images/quiz.png') }}" 
+                  class="equal-size rounded" 
+                  alt="Interactive Assessments" />
               </div>
             </div>
-
-            <div class = "row mt-2">
-              <div class = "col d-flex justify-content-center align-items-center">
-                <p> Sample description</p>
-              </div>
-            </div>
-          
           </div>
 
       </div>
 
       <div class = "col-4">
-        <div class="glass p-4">
-          <!-- Title / Tage Line -->
+        <div class="glass p-4" style = "height: 300px;">
+          <!-- Title / Tag Line -->
           <div class = "row">
             <div class = "col d-flex justify-content-center align-items-center">
-              <h4> Guided Lesson Plan </h4>
+              <h4 class = "poppins">Guided Lesson Plan</h4>
             </div>
           </div>
 
@@ -134,23 +126,13 @@
             <div class="col-auto">
               <img 
                 src="{{ url_for('static', filename='assets/images/lesson_plan.png') }}" 
-                class="img-fluid rounded" 
-                alt="Placeholder landscape"/>
+                class="equal-size rounded" 
+                alt="Guided Lesson Plan" />
             </div>
           </div>
-
-          <div class = "row mt-2">
-            <div class = "col d-flex justify-content-center align-items-center">
-              <p> Sample description</p>
-            </div>
-          </div>
-        
         </div>
       </div>
-        
     </div>
-
   </div>
-
 
 {% endblock %}

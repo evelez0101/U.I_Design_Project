@@ -10,6 +10,9 @@
   href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
   rel="stylesheet"
 />
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}" >
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div id="quiz-results" class="container my-4"></div>
@@ -27,12 +30,13 @@
             </button>   
         </div>
         
-        <div class = "col-9"></div>
+        <div class = "col-8"></div>
         
         <div class = "col">
             <button 
                 type= "button" 
                 id = "next" 
+                style = "background-color: var(--color-primary); border: 2px solid white;"
                 class= "btn btn-secondary rounded-2"> 
                 Return to Menu
             </button>
@@ -105,9 +109,9 @@
 
     // Score header
     $container.append(`
-      <div class="text-center mb-4">
-        <h2>Your Score</h2>
-        <h1 class="display-4 ${correctCount/total >= 0.6 ? 'text-success' : 'text-danger'}">
+      <div class="text-center mb-4 glass">
+        <h2 class = "poppins">Your Score</h2>
+        <h1 class="display-4 ${correctCount/total >= 0.6 ? 'text-success' : 'text-secondary'}">
           ${correctCount} / ${total}
         </h1>
       </div>
@@ -116,17 +120,19 @@
     // Detailed list
     const $list = $('<ul class="list-group"></ul>');
     results.forEach(r => {
-      const badgeClass = r.isCorrect ? 'bg-success' : 'bg-danger';
+      const badgeClass = r.isCorrect ? 'bg-success' : 'bg-secondary';
       const badgeText  = r.isCorrect ? 'Correct'    : 'Wrong';
 
       const $item = $(`
-        <li class="list-group-item d-flex justify-content-between align-items-start">
+        <li class="list-group-item d-flex justify-content-between align-items-start rounded glass my-1">
           <div class="ms-2 me-auto">
-            <div class="fw-bold">${r.questionText}</div>
-            <small>
-              Your answer: <em>${r.userAnswer}</em><br/>
+            <div class="h3 poppins">${r.questionText}</div>
+            <div class = "h5 mt-1">
+              Your answer: <em>${r.userAnswer}</em>
+              <br/>
+              <br/>
               ${!r.isCorrect ? `Correct answer: <strong>${r.correctAnswer}</strong>` : ''}
-            </small>
+            </div>
           </div>
           <span class="badge ${badgeClass} rounded-pill">${badgeText}</span>
         </li>

@@ -9,7 +9,8 @@
       const $col = $('<div class="col-6"></div>');
       const $btn = $(`
         <button type="button"
-                class="quiz-option btn btn-outline-secondary"
+                class="quiz-option btn btn-md "
+                style = "color: black; border: black solid 1px"
                 data-value="${opt.value}">
           ${opt.value}.) ${opt.text}
         </button>
@@ -24,13 +25,13 @@
     {
       // reset all
       $('.quiz-option')
-        .removeClass('btn-primary')
-        .addClass('btn-outline-secondary');
+        .removeClass('btn btn-md bg-base')
+        .addClass('btn');
       
       // activate this one
       $(this)
         .removeClass('btn-outline-secondary')
-        .addClass('btn-primary');
+        .addClass('btn bg-base');
       console.log('Selected answer:', $(this).data('value'));
 
       let answer = $(this).data('value');
@@ -49,5 +50,5 @@ function toggleLoaded()
   console.log(value)
 
   let $btn = $(`button[data-value="${value}"]`);
-  $btn.removeClass('btn-outline-secondary').addClass('btn-primary');
+  $btn.removeClass('btn-outline-secondary').addClass('btn btn-md bg-base');
 }

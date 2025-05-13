@@ -23,7 +23,8 @@ lesson_plan = {
         "description": "tests comprehension of Getting Started and C Major", 
         "completed": False,
         "type": "quiz",
-        "lesson_id": 3
+        "lesson_id": 3,
+        "quiz_id": 2,
     },
     3: {
         "title": "A Major",
@@ -44,7 +45,8 @@ lesson_plan = {
         "description": "tests comprehension of A Major and G Major", 
         "completed": False,
         "type": "quiz",
-        "lesson_id": 3
+        "lesson_id": 3,
+        "quiz_id": 5,
     },
     6: {
         "title": "E Major",
@@ -65,7 +67,8 @@ lesson_plan = {
         "description": "tests comprehension of E Major and D Major", 
         "completed": False,
         "type": "quiz",
-        "lesson_id": 3
+        "lesson_id": 3,
+        "quiz_id": 8,
     },
 }
 
@@ -122,7 +125,7 @@ lesson_content = {
         {
             "chord": "A Major",
             "image": "https://richterguitar.com/wp-content/uploads/2024/03/A-Major-Version-2.png",
-            "notes": ["X", "A", "E", "A", "C#", "E"],
+            "notes": ["E", "C#", "A", "E", "A", "X"],
             "video": "https://www.youtube.com/embed/kTyYAEZgLLA?si=dQu6v_Kwk8X9nkgg",
             "audio": "file path",
             "type": "info",
@@ -144,7 +147,7 @@ lesson_content = {
         {
             "chord": "G Major",
             "image": "https://richterguitar.com/wp-content/uploads/2024/03/G-major.png",
-            "notes": ["G", "B", "D", "G", "B", "G"],
+            "notes": ["G", "B", "G", "D", "B", "G"],
             "video": "https://www.youtube.com/embed/mGyY4sAG-ac?si=tz25CBwkyConBjJp",
             "audio": "file path",
             "type": "info",
@@ -166,7 +169,7 @@ lesson_content = {
         {
             "chord": "E Major",
             "image": "https://richterguitar.com/wp-content/uploads/2024/03/E-Major.png",
-            "notes": ["E", "B", "E", "G#", "B", "E"],
+            "notes": ["E", "B", "G#", "E", "B", "E"],
             "video": "https://www.youtube.com/embed/aHDVoHKQsJM?si=Z4oKKDKxX74NCDw7",
             "audio": "file path",
             "type": "info",
@@ -175,7 +178,7 @@ lesson_content = {
         },
         {
             "chord": "E Major Tab",
-            "notes": ["E", "B", "E", "G#", "B", "E"],
+            "notes": ["E", "B", "G#", "E", "B", "E"],
             "type": "chord",
             "order": 2,
             "lesson_id": 2
@@ -188,7 +191,7 @@ lesson_content = {
         {
             "chord": "D Major",
             "image": "https://richterguitar.com/wp-content/uploads/2024/03/D-Major.png",
-            "notes": ["X", "X", "D", "A", "D", "F#"],
+            "notes": ["F#", "D", "A", "D", "X", "X"],
             "video": "https://www.youtube.com/embed/xub0SHW1Kbk?si=AqpBXygG-btl5NLD",
             "audio": "file path",
             "type": "info",
@@ -197,7 +200,7 @@ lesson_content = {
         },
         {
             "chord": "D Major Tab",
-            "notes": ["X", "X", "D", "A", "D", "F#"],
+            "notes": ["F#", "D", "A", "D", "X", "X"],
             "type": "chord",
             "order": 2,
             "lesson_id": 2
@@ -214,7 +217,8 @@ quiz_content = {
         "directions": "Please Select which notes to play and which notes to play.",
         "answer": ["E", "C", "G", "E", "C", "X"],
         "user": [],
-        "type": "chord"
+        "type": "chord",
+        "lesson_id": 1
     },
     # Question 2
     {
@@ -223,6 +227,7 @@ quiz_content = {
         "answer": "A",
         "user": [],
         "type": "mult",
+        "lesson_id": 0,
         "options": [
                     { "value": "A", "text": "Fret Wires" },
                     { "value": "B", "text": "The Nut" },
@@ -238,6 +243,7 @@ quiz_content = {
         "answer": "B",
         "user": [],
         "type": "mult",
+        "lesson_id": 0,
         "options": [
                     { "value": "A", "text": "Play the string openly" },
                     { "value": "B", "text": "Don't play the string" },
@@ -253,6 +259,7 @@ quiz_content = {
         "answer": ["E", "C#", "A", "E", "A", "X"],
         "type": "chord",
         "user": [],
+        "lesson_id": 3
     },
     # Question 2
     {
@@ -261,6 +268,7 @@ quiz_content = {
         "answer": ["G", "B", "G", "D", "B", "G"],
         "type": "chord",
         "user": [],
+        "lesson_id": 4
     }],
 8:[ 
     # Question 1
@@ -270,6 +278,7 @@ quiz_content = {
         "answer": ["E", "B", "G#", "E", "B", "E"],
         "type": "chord",
         "user": [],
+        "lesson_id": 6
     },
     # Question 2
     {
@@ -277,7 +286,7 @@ quiz_content = {
         "directions": "Please Select which notes to play and which notes to play.",
         "answer": ["F#", "D", "A", "D", "X", "X"],
         "type": "chord",
-        "user": [],
+        "lesson_id": 7
     }]
     }
 
@@ -291,6 +300,10 @@ current_question = 1
 @app.route('/')
 def welcome():
    return render_template('welcome.html')   
+
+@app.route('/report')
+def report():
+   return render_template('report_page.html', lesson_plan = lesson_plan)   
 
 @app.route('/lesson_plan')
 def lessons():

@@ -1,0 +1,30 @@
+.glass {
+    background:  rgba(255, 255, 255, 0.6) ;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+
+/* 1) Keyframes to slide the gradient */
+@keyframes steel-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+/* 2) Animated background using your #468faf plus lighter/darker tints */
+body {
+    background: linear-gradient(
+      90deg,
+      #468faf 0%,
+      #6baedc 50%,   /* lighter tint of #468faf */
+      #2a628f 100%   /* darker tint of #468faf */
+    );
+    background-size: 300% 300%;  
+    animation: steel-shift 10s ease infinite;
+}

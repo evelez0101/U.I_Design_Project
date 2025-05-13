@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<script>
+let lesson_plan = {{lesson_plan|tojson}};
+</script>
+
+<style>
+.glass {
+  background:  rgba(255, 255, 255, 0.6) ;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+
+@keyframes mint-shift {
+  0%,100%   { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* 1) Keyframes to slide the gradient */
+@keyframes steel-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 2) Animated background using your #468faf plus lighter/darker tints */
+body {
+  background: linear-gradient(
+    90deg,
+    #468faf 0%,
+    #6baedc 50%,   /* lighter tint of #468faf */
+    #2a628f 100%   /* darker tint of #468faf */
+  );
+  background-size: 300% 300%;  
+  animation: steel-shift 10s ease infinite;
+}
+
+</style>
+
+<script>
+$(document).ready(function(){
+    $('.btn').on('click', function()
+    {
+        let btnId = $(this).attr('id');
+        window.location.href = '/results/' + btnId
+    });
+});
+</script>
+
+<div class="container my-5">
+    <div class="row g-4">
+
+    <!-- Entry Template -->
+    {% if lesson_plan %}
+    
+    {% set ns = namespace(count=1) %}
+
+    {% for idx in lesson_plan %}
+
+    {% if lesson_plan[idx]["type"] == "quiz" %}
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm glass">
+          <div class="card-body text-center">
+            <h2 class="card-title poppins">Assement {{ns.count}}</h2>
+            
+            {% set ns.count = ns.count + 1 %}
+
+            {% if lesson_plan[idx]["completed"] %}
+            <h5 class = "poppins"> Completed </h5>
+            {% else %}
+            <h5 class = "poppins"> Not Yet Completed </h5>
+            
+            {% endif %}
+
+            <button class="btn btn-lg bg-base mt-3" 
+                    id = "{{lesson_plan[idx]["quiz_id"]}}"
+                    style = "color: white; border: 0px;"
+                    {{ '' if lesson_plan[idx]["completed"] else 'disabled' }}
+            >
+                    See Results
+            </button>
+          </div>
+        </div>
+      </div>
+
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}
